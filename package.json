@@ -1,0 +1,20 @@
+{
+  "name": "be-tmson",
+  "version": "1.0.0",
+  "description": "The Mutated States of Northcodia Group Project - Back End",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhilipGB/be-tmson.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PhilipGB/be-tmson/issues"
+  },
+  "homepage": "https://github.com/PhilipGB/be-tmson#readme"
+}
