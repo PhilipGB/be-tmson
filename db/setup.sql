@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS be_tmson_test;
+DROP DATABASE IF EXISTS be_tmson;
+
+CREATE DATABASE be_tmson_test;
+CREATE DATABASE be_tmson;

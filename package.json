@@ -4,7 +4,12 @@
   "description": "The Mutated States of Northcodia Group Project - Back End",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "setup-dbs": "psql -f ./db/setup.sql",
+    "seed": "node ./db/seeds/run-seed.js",
+    "test": "jest",
+    "dev": "nodemon ./app/listen.js",
+    "seed:prod": "NODE_ENV=production DATABASE_URL=$(heroku config:get DATABASE_URL) npm run seed",
+    "start": "node ./app/listen.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +21,21 @@
   "bugs": {
     "url": "https://github.com/PhilipGB/be-tmson/issues"
   },
-  "homepage": "https://github.com/PhilipGB/be-tmson#readme"
+  "homepage": "https://github.com/PhilipGB/be-tmson#readme",
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "pg": "^8.7.3",
+    "pg-format": "^1.0.4"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  }
 }
