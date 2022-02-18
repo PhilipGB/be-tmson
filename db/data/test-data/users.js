@@ -9,7 +9,7 @@ module.exports = [
     address: "West One, 100 Wellington St, Leeds",
     postcode: "LS14LT",
     email_address: "me@mine.com",
-    bios: "Ullamco dolor ea ex consequat nostrud fugiat elit minim mollit aliqua incididunt cupidatat.",
+    bio: "Ullamco dolor ea ex consequat nostrud fugiat elit minim mollit aliqua incididunt cupidatat.",
     minter: true,
   },
   {
@@ -22,7 +22,7 @@ module.exports = [
     address: "West One, 100 Wellington St, Leeds",
     postcode: "LS14LT",
     email_address: "me@mine.com",
-    bios: "Ullamco dolor ea ex consequat nostrud fugiat elit minim mollit aliqua incididunt cupidatat.",
+    bio: "Ullamco dolor ea ex consequat nostrud fugiat elit minim mollit aliqua incididunt cupidatat.",
     minter: true,
   },
 ];
