@@ -8,9 +8,6 @@ usersRouter
   })
   .post((req, res) => {
     res.status(200).send("All OK from POST /api/users");
-  })
-  .patch((req, res) => {
-    res.status(200).send("All OK from PATCH /api/users");
   });
 
 usersRouter

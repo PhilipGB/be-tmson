@@ -8,18 +8,15 @@ skillsRouter
   })
   .post((req, res) => {
     res.status(200).send("All OK from POST /api/skills");
-  })
-  .patch((req, res) => {
-    res.status(200).send("All OK from PATCH /api/skills");
   });
 
 skillsRouter
   .route("/:skill")
   .get((req, res) => {
-    res.status(200).send("All OK from GET /api/skills/:username");
+    res.status(200).send("All OK from GET /api/skills/:skill");
   })
   .patch((req, res) => {
-    res.status(200).send("All OK from PATCH /api/skills/:username");
+    res.status(200).send("All OK from PATCH /api/skills/:skill");
   });
 
 module.exports = skillsRouter;
