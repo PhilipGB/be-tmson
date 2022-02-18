@@ -1,0 +1,49 @@
+You are now connected to database "be_tmson" as user "philip".
+ user_id | username | first_name | last_name |     birth_date      |                                       avatar_url                                        |              address               | postcode |     email_address      |                                      bio                                       | minter 
+---------+----------+------------+-----------+---------------------+-----------------------------------------------------------------------------------------+------------------------------------+----------+------------------------+--------------------------------------------------------------------------------+--------
+       1 | PhilipGB | Philip     | Burgess   | 1983-01-01 00:00:00 | https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png | West One, 100 Wellington St, Leeds | LS14LT   | me@mine.com            |                                                                                | t
+       2 | Leah     | Leah       |           | 2000-01-01 00:00:00 | https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png | West One, 100 Wellington St, Leeds | LS14LT   | me@mine.com            |                                                                                | t
+       3 | Felice   | Felice     | Thynne    | 1930-10-15 00:00:00 | https://robohash.org/exercitationemillumlibero.png?size=50x50&set=set1                  | 2 Melrose Point                    | BD7      | fthynne0@wordpress.org | Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. | f
+(3 rows)
+
+   slug   |       description        
+----------+--------------------------
+ language | Teach a foreign language
+(1 row)
+
+ skill_id | skill_category | skill_subcategory |                    skill_description                    |                                   thumbnail_image_url                                    
+----------+----------------+-------------------+---------------------------------------------------------+------------------------------------------------------------------------------------------
+        1 | language       | French            | Teach French speaking and listening to English speakers | https://dceff.org/wp-content/uploads/2014/11/french-flag-large.png
+        2 | language       | German            | Teach German speaking and listening to English speakers | https://images.all-free-download.com/images/graphiclarge/german_flag_deutsche_272635.jpg
+(2 rows)
+
+ user_id | skill_id 
+---------+----------
+       1 |        1
+       2 |        2
+(2 rows)
+
+ token_id |   generated_date    | owner_id | minter_id 
+----------+---------------------+----------+-----------
+        1 | 2022-02-17 00:00:00 |        1 |         2
+        2 | 2022-02-17 00:00:00 |        2 |         1
+(2 rows)
+
+ task_id | booker_id | provider_id | skill_id |     start_time      |      end_time       | location 
+---------+-----------+-------------+----------+---------------------+---------------------+----------
+       1 |         1 |           2 |        1 | 2022-02-17 19:00:00 | 2022-02-17 20:00:00 | Zoom
+       2 |         2 |           1 |        2 | 2022-02-17 20:00:00 | 2022-02-17 21:00:00 | Zoom
+(2 rows)
+
+ transaction_id | token_id | task_id |  transaction_time   | previous_transaction_id 
+----------------+----------+---------+---------------------+-------------------------
+              1 |        1 |       1 | 2022-02-18 00:00:00 |                        
+              2 |        2 |       2 | 2022-02-18 01:00:00 |                        
+(2 rows)
+
+ rating_id | task_id | rating | comment 
+-----------+---------+--------+---------
+         1 |       1 |      9 | Good
+         2 |       2 |     10 | Great
+(2 rows)
+
