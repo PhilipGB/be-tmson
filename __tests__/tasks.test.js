@@ -21,3 +21,23 @@ describe('0. GET /notARoute', () => {
 			});
 	});
 });
+
+describe('1. GET /api/tasks', () => {
+	test('responds with status: 200 and returns array of task objects', () => {
+		return request(app)
+			.get('/api/tasks')
+			.expect(200)
+			.then(({ body: { tasks } }) => {
+				tasks.forEach((task) => {
+					expect(task).toMatchObject({
+						booker_id: expect.any(Number),
+						provider_id: expect.any(Number),
+						skill_id: expect.any(Number),
+						start_time: expect.any(String),
+						end_time: expect.any(String),
+						location: expect.any(String),
+					});
+				});
+			});
+	});
+});
