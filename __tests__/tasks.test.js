@@ -39,7 +39,7 @@ describe('1. GET /api/tasks', () => {
 				});
 			});
 	});
-	test('responds with status: 404 and returns error message', () => {
+	test('responds with status: 404 and returns error message when passed invalid path', () => {
 		return request(app)
 			.get('/api/task')
 			.expect(404)
@@ -49,6 +49,14 @@ describe('1. GET /api/tasks', () => {
 						msg: 'Invalid URL',
 					})
 				);
+			});
+	});
+	test('responds with status: 200 and returns an array of tasks object sorted by default as skill_id in descending order', () => {
+		return request(app)
+			.get('/api/tasks')
+			.expect(200)
+			.then(({ body: { tasks } }) => {
+				expect(tasks).toBeSortedBy('skill_id', { descending: true });
 			});
 	});
 	test('responds with status: 200 and returns an array of task objects sorted by skill_id in descending order', () => {
