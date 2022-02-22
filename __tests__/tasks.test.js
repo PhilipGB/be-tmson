@@ -67,4 +67,20 @@ describe('1. GET /api/tasks', () => {
 				expect(tasks).toBeSortedBy('start_time', { ascending: true });
 			});
 	});
+	test('responds with status: 400 and error message when passed an invalid query', () => {
+		return request(app)
+			.get('/api/tasks?sort_by=skil_id&order=asc')
+			.expect(400)
+			.then(({ body: { msg } }) => {
+				expect(msg).toBe('Bad request, Invalid Input');
+			});
+	});
+	test('responds with status: 400 and error message when passed an invalid order', () => {
+		return request(app)
+			.get('/api/tasks?sort_by=skill_id&order=ascending')
+			.expect(400)
+			.then(({ body: { msg } }) => {
+				expect(msg).toBe('Bad request, Invalid Input');
+			});
+	});
 });
