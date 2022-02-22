@@ -92,3 +92,37 @@ describe('1. GET /api/tasks', () => {
 			});
 	});
 });
+
+describe('GET /api/tasks/:task_id', () => {
+	test('responds with status: 200 and returns array of task object', () => {
+		return request(app)
+			.get('/api/tasks/1')
+			.expect(200)
+			.then(({ body: { task } }) => {
+				expect(task).toMatchObject({
+					booker_id: 1,
+					provider_id: 2,
+					skill_id: 1,
+					start_time: expect.any(String),
+					end_time: expect.any(String),
+					location: 'Zoom',
+				});
+			});
+	});
+	test('responds with status: 404 and error message when passed an ID that does not exist', () => {
+		return request(app)
+			.get('/api/tasks/3')
+			.expect(404)
+			.then(({ body: { msg } }) => {
+				expect(msg).toBe('Not Found');
+			});
+	});
+	test('responds with status: 400 and error message when passed an invalid data type ', () => {
+		return request(app)
+			.get('/api/tasks/newid')
+			.expect(400)
+			.then(({ body: { msg } }) => {
+				expect(msg).toBe('Bad Request');
+			});
+	});
+});

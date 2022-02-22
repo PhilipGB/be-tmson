@@ -29,3 +29,17 @@ exports.fetchTasks = (sort, order) => {
 		return rows;
 	});
 };
+
+exports.fetchTaskById = (id) => {
+	return db
+		.query(`SELECT * FROM tasks WHERE task_id = $1`, [id])
+		.then(({ rows }) => {
+			if (!rows[0]) {
+				return Promise.reject({
+					status: 404,
+					msg: 'Not Found',
+				});
+			}
+			return rows[0];
+		});
+};

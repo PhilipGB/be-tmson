@@ -1,4 +1,4 @@
-const { getTasks } = require('../controllers/tasks-controller');
+const { getTasks, getTaskById } = require('../controllers/tasks-controller');
 
 const tasksRouter = require('express').Router();
 // const {} = require("../controllers/tasks-controllers.js");
@@ -14,10 +14,8 @@ tasksRouter
 	});
 
 tasksRouter
-	.route('/:skill')
-	.get((req, res) => {
-		res.status(200).send('All OK from GET /api/tasks/:username');
-	})
+	.route('/:task_id')
+	.get(getTaskById)
 	.patch((req, res) => {
 		res.status(200).send('All OK from PATCH /api/tasks/:username');
 	});
