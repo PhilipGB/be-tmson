@@ -3,6 +3,7 @@ const {
 	fetchTaskById,
 	updateTaskById,
 	writeNewTask,
+	eraseTask,
 } = require('../models/tasks.model');
 
 exports.getTasks = (req, res, next) => {
@@ -38,6 +39,15 @@ exports.postTask = (req, res, next) => {
 	writeNewTask(req.body)
 		.then((task) => {
 			res.status(201).send({ task });
+		})
+		.catch(next);
+};
+
+exports.deleteTask = (req, res, next) => {
+	const { task_id } = req.params;
+	eraseTask(task_id)
+		.then(() => {
+			res.status(204).send({ msg: 'No Content' });
 		})
 		.catch(next);
 };

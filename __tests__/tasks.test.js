@@ -211,3 +211,17 @@ describe('POST /api/tasks/', () => {
 			});
 	});
 });
+
+describe('DELETE - /api/tasks/:task_id', () => {
+	test('responds with status: 204 and returns No content ', () => {
+		return request(app).delete('/api/tasks/3').expect(204);
+	});
+	test('responds with status: 400 and error message when passed an invalid ID ', () => {
+		return request(app)
+			.delete('/api/tasks/notanid')
+			.expect(400)
+			.then(({ body: { msg } }) => {
+				expect(msg).toBe('Bad Request');
+			});
+	});
+});

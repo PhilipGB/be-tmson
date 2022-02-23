@@ -98,3 +98,9 @@ exports.writeNewTask = (body) => {
 			}
 		});
 };
+
+exports.eraseTask = (id) => {
+	return db
+		.query(`DELETE FROM tasks WHERE task_id = $1 RETURNING *`, [id])
+		.then(({ rows }) => {});
+};

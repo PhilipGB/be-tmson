@@ -3,6 +3,7 @@ const {
 	getTaskById,
 	patchTaskById,
 	postTask,
+	deleteTask,
 } = require('../controllers/tasks-controller');
 
 const tasksRouter = require('express').Router();
@@ -16,6 +17,10 @@ tasksRouter
 		res.status(200).send('All OK from PATCH /api/tasks');
 	});
 
-tasksRouter.route('/:task_id').get(getTaskById).patch(patchTaskById);
+tasksRouter
+	.route('/:task_id')
+	.get(getTaskById)
+	.patch(patchTaskById)
+	.delete(deleteTask);
 
 module.exports = tasksRouter;
