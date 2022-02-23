@@ -43,3 +43,28 @@ exports.fetchTaskById = (id) => {
 			return rows[0];
 		});
 };
+
+exports.updateTaskById = (body, id) => {
+	const { location } = body;
+	const { skill_id } = body;
+	const { booker_id } = body;
+	const { provider_id } = body;
+	const { start_time } = body;
+	const { end_time } = body;
+
+	return db
+		.query(
+			`UPDATE tasks SET location = $1, skill_id = $2, booker_id = $3, provider_id = $4, start_time = $5, end_time = $6 WHERE task_id = $7 RETURNING *`,
+			[location, skill_id, booker_id, provider_id, start_time, end_time, id]
+		)
+		.then(({ rows }) => {
+			if (!rows.length) {
+				return Promise.reject({
+					status: 404,
+					msg: 'ID not found',
+				});
+			} else {
+				return rows[0];
+			}
+		});
+};

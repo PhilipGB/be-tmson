@@ -3,8 +3,6 @@ exports.invalidURL = (req, res) => {
 };
 
 exports.errorHandlers = (err, req, res, next) => {
-	// console.log(err);
-
 	if (err.code === '22P02' || err.code === '23502' || err.code === '23503') {
 		res.status(400).send({ msg: 'Bad Request' });
 	}

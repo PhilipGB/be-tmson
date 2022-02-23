@@ -126,3 +126,52 @@ describe('GET /api/tasks/:task_id', () => {
 			});
 	});
 });
+
+describe('PATCH /api/tasks/:task_id', () => {
+	test('responds with status: 200 and returns updated task', () => {
+		return request(app)
+			.patch('/api/tasks/1')
+			.send({
+				booker_id: 1,
+				provider_id: 1,
+				skill_id: 1,
+				start_time: new Date(2022, 1, 17, 19, 0),
+				end_time: new Date(2022, 1, 17, 20, 0),
+				location: 'The moon',
+			})
+			.expect(200)
+			.then(({ body: { task } }) => {
+				expect(task).toBeInstanceOf(Object);
+				expect(task).toMatchObject({
+					booker_id: 1,
+					provider_id: 1,
+					skill_id: 1,
+					start_time: expect.any(String),
+					end_time: expect.any(String),
+					location: 'The moon',
+				});
+			});
+	});
+
+	test('responds with status: 400 and error message when passed an invalid id ', () => {
+		return request(app)
+			.patch('/api/tasks/notanid')
+			.send({
+				location: 'Not an ID',
+			})
+			.expect(400)
+			.then(({ body: { msg } }) => {
+				expect(msg).toBe('Bad Request');
+			});
+	});
+
+	test('responds with status: 404 and error message with passed an ID that doesnt exist', () => {
+		return request(app)
+			.patch('/api/tasks/90')
+			.send({ location: 'London' })
+			.expect(404)
+			.then(({ body: { msg } }) => {
+				expect(msg).toBe('ID not found');
+			});
+	});
+});

@@ -1,4 +1,8 @@
-const { getTasks, getTaskById } = require('../controllers/tasks-controller');
+const {
+	getTasks,
+	getTaskById,
+	patchTaskById,
+} = require('../controllers/tasks-controller');
 
 const tasksRouter = require('express').Router();
 // const {} = require("../controllers/tasks-controllers.js");
@@ -13,11 +17,6 @@ tasksRouter
 		res.status(200).send('All OK from PATCH /api/tasks');
 	});
 
-tasksRouter
-	.route('/:task_id')
-	.get(getTaskById)
-	.patch((req, res) => {
-		res.status(200).send('All OK from PATCH /api/tasks/:username');
-	});
+tasksRouter.route('/:task_id').get(getTaskById).patch(patchTaskById);
 
 module.exports = tasksRouter;
