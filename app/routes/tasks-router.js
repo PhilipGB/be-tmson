@@ -2,6 +2,7 @@ const {
 	getTasks,
 	getTaskById,
 	patchTaskById,
+	postTask,
 } = require('../controllers/tasks-controller');
 
 const tasksRouter = require('express').Router();
@@ -10,9 +11,7 @@ const tasksRouter = require('express').Router();
 tasksRouter
 	.route('/')
 	.get(getTasks)
-	.post((req, res) => {
-		res.status(200).send('All OK from POST /api/tasks');
-	})
+	.post(postTask)
 	.patch((req, res) => {
 		res.status(200).send('All OK from PATCH /api/tasks');
 	});

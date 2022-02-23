@@ -68,3 +68,33 @@ exports.updateTaskById = (body, id) => {
 			}
 		});
 };
+
+exports.writeNewTask = (body) => {
+	const { booker_id } = body;
+	const { task_id } = body;
+	const { skill_id } = body;
+	const { start_time } = body;
+	const { end_time } = body;
+	const { location } = body;
+	return db
+		.query(
+			`INSERT INTO tasks 
+			(booker_id, task_id, skill_id, start_time, end_time, location)
+		VALUES
+			($1, $2, $3, $4, $5, $6)
+		RETURNING *
+	`,
+			[booker_id, task_id, skill_id, start_time, end_time, location]
+		)
+		.then(({ rows }) => {
+			return rows[0];
+		})
+		.catch((err) => {
+			if (err.code === '23502') {
+				return Promise.reject({
+					status: 405,
+					msg: 'Invalid Request Body',
+				});
+			}
+		});
+};

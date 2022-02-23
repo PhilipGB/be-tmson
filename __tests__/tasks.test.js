@@ -175,3 +175,39 @@ describe('PATCH /api/tasks/:task_id', () => {
 			});
 	});
 });
+
+describe('POST /api/tasks/', () => {
+	test('responds with status: 200 and responds with newly posted task', () => {
+		return request(app)
+			.post('/api/tasks')
+			.send({
+				booker_id: 2,
+				task_id: 3,
+				skill_id: 2,
+				start_time: new Date(2022, 1, 17, 19, 0),
+				end_time: new Date(2022, 1, 17, 20, 0),
+				location: 'Scotland',
+			})
+			.expect(201)
+			.then(({ body: { task } }) => {
+				expect(task).toBeInstanceOf(Object);
+				expect(task).toMatchObject({
+					booker_id: 2,
+					task_id: 3,
+					skill_id: 2,
+					start_time: expect.any(String),
+					end_time: expect.any(String),
+					location: 'Scotland',
+				});
+			});
+	});
+	test('responds with status: 405 and error message when passed a missing request body ', () => {
+		return request(app)
+			.post('/api/tasks')
+			.send({ location: 'London' })
+			.expect(405)
+			.then(({ body: { msg } }) => {
+				expect(msg).toBe('Invalid Request Body');
+			});
+	});
+});

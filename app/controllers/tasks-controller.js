@@ -2,6 +2,7 @@ const {
 	fetchTasks,
 	fetchTaskById,
 	updateTaskById,
+	writeNewTask,
 } = require('../models/tasks.model');
 
 exports.getTasks = (req, res, next) => {
@@ -29,6 +30,14 @@ exports.patchTaskById = (req, res, next) => {
 	updateTaskById(updatedTaskBody, task_id)
 		.then((task) => {
 			res.status(200).send({ task });
+		})
+		.catch(next);
+};
+
+exports.postTask = (req, res, next) => {
+	writeNewTask(req.body)
+		.then((task) => {
+			res.status(201).send({ task });
 		})
 		.catch(next);
 };
