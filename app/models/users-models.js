@@ -1,11 +1,12 @@
 const db = require("../../db/connection.js");
 
-exports.selectUsers = () => {
+exports.selectUsers = (limit = "ALL", offset = 0) => {
   return db
     .query(
       `
         SELECT *
-        FROM users;
+        FROM users
+        LIMIT ${limit} OFFSET ${offset};
       `
     )
     .then((result) => result.rows);
@@ -79,5 +80,63 @@ exports.insertUser = ({
       }
 
       throw err;
+    });
+};
+
+exports.updateUser = (updatedUser, usernameEndpoint) => {
+  const {
+    user_id,
+    username,
+    first_name,
+    last_name,
+    bio,
+    birth_date,
+    avatar_url,
+    address,
+    postcode,
+    email_address,
+    minter,
+  } = updatedUser;
+
+  return db
+    .query(
+      `
+        UPDATE users 
+        SET 
+          username = $2,
+          first_name = $3,
+          last_name = $4,
+          bio = $5,
+          birth_date = $6,
+          avatar_url = $7,
+          address = $8,
+          postcode = $9,
+          email_address = $10,
+          minter = $11
+        WHERE user_id = $1
+        RETURNING *;
+      `,
+      [
+        user_id,
+        username,
+        first_name,
+        last_name,
+        bio,
+        birth_date,
+        avatar_url,
+        address,
+        postcode,
+        email_address,
+        minter,
+      ]
+    )
+    .then((result) => {
+      if (result.rowCount) {
+        return result.rows[0];
+      }
+      return Promise.reject({
+        status: 404,
+        msg: `No user found for ${usernameEndpoint}`,
+      });
     });
 };

@@ -100,7 +100,7 @@ describe("3. POST /api/users/", () => {
   });
   test("status:405, request body missing", () => {
     const newUser = {
-      username: "butter_bridge",
+      username: "TestUser",
     };
     return request(app)
       .post("/api/users")
@@ -108,6 +108,53 @@ describe("3. POST /api/users/", () => {
       .expect(405)
       .then(({ body }) => {
         expect(body.msg).toEqual("Invalid request body");
+      });
+  });
+});
+
+describe("4. PATCH /api/users/:username", () => {
+  test("status:200, responds with updated user", () => {
+    return request(app)
+      .get("/api/users/fthynne0")
+      .then(({ body }) => {
+        const updatedUser = { ...body.user };
+        updatedUser.last_name = "UPDATED";
+        updatedUser.minter = true;
+
+        return request(app)
+          .patch("/api/users/fthynne0")
+          .send(updatedUser)
+          .expect(200)
+          .then(({ body }) => {
+            expect(body).toEqual({
+              user: {
+                user_id: expect.any(Number),
+                username: "fthynne0",
+                first_name: "Felice",
+                last_name: "UPDATED",
+                birth_date: "1930-10-15T00:00:00.000Z",
+                avatar_url:
+                  "https://robohash.org/exercitationemillumlibero.png?size=50x50&set=set1",
+                address: "2 Melrose Point",
+                postcode: "BD7",
+                email_address: "fthynne0@wordpress.org",
+                bio: "Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",
+                minter: true,
+              },
+            });
+          });
+      });
+  });
+
+  test("status:404, username found", () => {
+    return request(app)
+      .patch("/api/users/INVALID")
+      .send({}) // should fail on invalid user endpoint
+      .expect(404)
+      .then(({ body }) => {
+        expect(body).toEqual({
+          msg: "No user found for INVALID",
+        });
       });
   });
 });
