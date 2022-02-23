@@ -77,8 +77,13 @@ exports.insertUser = ({
           status: 405,
           msg: "Invalid request body",
         });
+      } else if (err.code === "23505") {
+        return Promise.reject({
+          status: 409,
+          msg: "Username already in use",
+        });
       }
-
+      console.error(err);
       throw err;
     });
 };

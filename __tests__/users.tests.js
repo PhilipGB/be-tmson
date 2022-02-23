@@ -98,6 +98,7 @@ describe("3. POST /api/users/", () => {
         });
       });
   });
+
   test("status:405, request body missing", () => {
     const newUser = {
       username: "TestUser",
@@ -108,6 +109,30 @@ describe("3. POST /api/users/", () => {
       .expect(405)
       .then(({ body }) => {
         expect(body.msg).toEqual("Invalid request body");
+      });
+  });
+
+  test("status:409, duplicate user name", () => {
+    const newUser = {
+      username: "fthynne0",
+      first_name: "Already",
+      last_name: "Used",
+      birth_date: "15-10-1930",
+      avatar_url:
+        "https://robohash.org/exercitationemillumlibero.png?size=50x50&set=set1",
+      address: "2 Melrose Point",
+      postcode: "BD7",
+      country: "United Kingdom",
+      email_address: "fthynne0@wordpress.org",
+      bio: "Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",
+      minter: false,
+    };
+    return request(app)
+      .post("/api/users")
+      .send(newUser)
+      .expect(409)
+      .then(({ body }) => {
+        expect(body.msg).toEqual("Username already in use");
       });
   });
 });
