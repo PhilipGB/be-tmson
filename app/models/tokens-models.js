@@ -17,7 +17,6 @@ exports.fetchTokenData = (start, end) => {
       [start_date, end_date]
     )
     .then((result) => {
-      console.log(result);
       return result.rows[0];
     });
 };

@@ -1,7 +1,6 @@
 const { fetchTokenData, fetchTokenById, updateTokenOwner } = require('../models/tokens-models');
 
 exports.getTokenData = (req, res, next) => {
-  console.log(req.query);
   const { start, end } = req.query;
   fetchTokenData(start, end)
     .then((tokens) => {
