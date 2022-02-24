@@ -5,6 +5,7 @@ const usersRouter = require("./users-router.js");
 const skillsRouter = require("./skills-router.js");
 const tasksRouter = require("./tasks-router.js");
 const tokensRouter = require("./tokens-router.js");
+const ratingsRouter = require("./ratings-router");
 
 apiRouter.route("/").get(getApi);
 
@@ -12,5 +13,6 @@ apiRouter.use("/users", usersRouter);
 apiRouter.use("/skills", skillsRouter);
 apiRouter.use("/tasks", tasksRouter);
 apiRouter.use("/tokens", tokensRouter);
+apiRouter.use("/ratings", ratingsRouter);
 
 module.exports = apiRouter;
