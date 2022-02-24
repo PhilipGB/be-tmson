@@ -29,7 +29,7 @@ module.exports = [
     username: "Felice",
     first_name: "Felice",
     last_name: "Thynne",
-    birth_date: "15-10-1930",
+    birth_date: "1930-10-15",
     avatar_url:
       "https://robohash.org/exercitationemillumlibero.png?size=50x50&set=set1",
     address: "2 Melrose Point",

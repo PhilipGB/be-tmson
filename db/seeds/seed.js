@@ -44,7 +44,7 @@ const seed = (data) => {
         return db.query(`
         CREATE TABLE  users (
           user_id SERIAL PRIMARY KEY,
-          username VARCHAR NOT NULL,
+          username VARCHAR NOT NULL UNIQUE,
           first_name VARCHAR NOT NULL,
           last_name VARCHAR,
           birth_date TIMESTAMP,
