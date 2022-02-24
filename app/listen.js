@@ -1,8 +1,9 @@
-const app = require("./app");
+const app = require('./app');
 
 const { PORT = 9090 } = process.env;
 
-app.listen(PORT, () => {
-  console.log("TMSON API");
+app.listen(PORT, (err) => {
+  if (err) throw err;
+  console.log('TMSON API');
   console.log(`Listening on port ${PORT}...`);
 });
