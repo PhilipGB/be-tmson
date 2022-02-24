@@ -59,7 +59,8 @@ describe('2. POST /api/skills', () => {
     const newSkill = {
       skill_category: 'languages',
       skill_subcategory: 'latin',
-      skill_description: 'Teach Latin speaking and listening to English speakers',
+      skill_description:
+        'Teach Latin speaking and listening to English speakers',
       thumbnail_image_url: 'http://dummyimage.com/138x100.png/ff4444/ffffff',
     };
     return request(app)
@@ -71,8 +72,10 @@ describe('2. POST /api/skills', () => {
           skill_id: 26,
           skill_category: 'languages',
           skill_subcategory: 'latin',
-          skill_description: 'Teach Latin speaking and listening to English speakers',
-          thumbnail_image_url: 'http://dummyimage.com/138x100.png/ff4444/ffffff',
+          skill_description:
+            'Teach Latin speaking and listening to English speakers',
+          thumbnail_image_url:
+            'http://dummyimage.com/138x100.png/ff4444/ffffff',
         });
       });
   });
@@ -89,7 +92,7 @@ describe('2. POST /api/skills', () => {
       });
   });
 
-  test.only('status:401, Invalid category', () => {
+  test('status:401, Invalid category', () => {
     const newSkill = {
       skill_category: 'invalid',
       skill_subcategory: 'invalid',

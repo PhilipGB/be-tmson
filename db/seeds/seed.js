@@ -1,5 +1,5 @@
-const format = require("pg-format");
-const db = require("../connection.js");
+const format = require('pg-format');
+const db = require('../connection.js');
 
 const seed = (data) => {
   const {
@@ -98,12 +98,12 @@ const seed = (data) => {
         return db.query(`
         CREATE TABLE tasks (
           task_id SERIAL PRIMARY KEY,
-          booker_id INT REFERENCES users,
+          booker_id INT REFERENCES users NOT NULL,
           provider_id INT REFERENCES users,
-          skill_id INT REFERENCES skills,
+          skill_id INT REFERENCES skills NOT NULL,
           start_time TIMESTAMP,
           end_time TIMESTAMP,
-          location VARCHAR
+          location VARCHAR NOT NULL
         );
       `);
       })

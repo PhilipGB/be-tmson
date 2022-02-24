@@ -24,6 +24,7 @@
   "homepage": "https://github.com/PhilipGB/be-tmson#readme",
   "devDependencies": {
     "jest": "^27.5.1",
+    "jest-sorted": "^1.0.14",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.2"
   },
@@ -37,5 +38,10 @@
   "engines": {
     "node": "16.x",
     "npm": "8.x"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-sorted"
+    ]
   }
 }
