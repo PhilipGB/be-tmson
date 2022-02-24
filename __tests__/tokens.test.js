@@ -14,13 +14,10 @@ describe('1. GET /api/tokens', () => {
       .expect(200)
       .then(({ body }) => {
         const { tokens } = body;
-        expect(tokens).toHaveLength(3);
-        expect(tokens).toEqual(
-          expect.objectContaining({
-            number_of_tokens: expect.any(Number),
-            transactions: expect.any(Number),
-          })
-        );
+        expect(tokens).toEqual({
+          total_tokens: '20',
+          transactions_date_range: '3',
+        });
       });
   });
 
@@ -64,5 +61,41 @@ describe('2. GET /api/tokens/:token_id', () => {
 });
 
 describe('4. PATCH /api/tokens:token_id', () => {
-  test('should ', () => {});
+  test('status:200, responds with updated token owner ', () => {
+    return request(app)
+      .patch('/api/tokens/2')
+      .send({
+        token_id: 2,
+        owner_id: 17,
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { token } = body;
+        expect(token).toEqual({
+          generated_date: expect.any(String),
+          minter_id: expect.any(Number),
+          owner_id: 17,
+          token_id: '2',
+        });
+      });
+  });
+  test('status:200, responds with updated token owner AND creates new transaction', () => {
+    return request(app)
+      .patch('/api/tokens/2')
+      .send({
+        minter_id: 1,
+        token_id: 2,
+        owner_id: 17,
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { token } = body;
+        expect(token).toEqual({
+          generated_date: expect.any(String),
+          minter_id: 1,
+          owner_id: 17,
+          token_id: '2',
+        });
+      });
+  });
 });

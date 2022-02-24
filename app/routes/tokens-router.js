@@ -1,5 +1,9 @@
 const tokensRouter = require('express').Router();
-const { getTokenById, getTokenData } = require('../controllers/tokens-controllers.js');
+const {
+  getTokenById,
+  getTokenData,
+  patchTokenOwner,
+} = require('../controllers/tokens-controllers.js');
 
 tokensRouter.route('/').get(getTokenData);
 
