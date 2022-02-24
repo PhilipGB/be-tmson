@@ -1,25 +1,26 @@
-const tasksRouter = require("express").Router();
+const {
+	getTasks,
+	getTaskById,
+	patchTaskById,
+	postTask,
+	deleteTask,
+} = require('../controllers/tasks-controller');
+
+const tasksRouter = require('express').Router();
 // const {} = require("../controllers/tasks-controllers.js");
 
 tasksRouter
-  .route("/")
-  .get((req, res) => {
-    res.status(200).send("All OK from POST /api/tasks");
-  })
-  .post((req, res) => {
-    res.status(200).send("All OK from POST /api/tasks");
-  })
-  .patch((req, res) => {
-    res.status(200).send("All OK from PATCH /api/tasks");
-  });
+	.route('/')
+	.get(getTasks)
+	.post(postTask)
+	.patch((req, res) => {
+		res.status(200).send('All OK from PATCH /api/tasks');
+	});
 
 tasksRouter
-  .route("/:task")
-  .get((req, res) => {
-    res.status(200).send("All OK from GET /api/tasks/:username");
-  })
-  .patch((req, res) => {
-    res.status(200).send("All OK from PATCH /api/tasks/:username");
-  });
+	.route('/:task_id')
+	.get(getTaskById)
+	.patch(patchTaskById)
+	.delete(deleteTask);
 
 module.exports = tasksRouter;
