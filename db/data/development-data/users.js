@@ -9,7 +9,7 @@ module.exports = [
     address: "West One, 100 Wellington St, Leeds",
     postcode: "LS14LT",
     email_address: "me@mine.com",
-    bios: "Ullamco dolor ea ex consequat nostrud fugiat elit minim mollit aliqua incididunt cupidatat.",
+    bio: "Ullamco dolor ea ex consequat nostrud fugiat elit minim mollit aliqua incididunt cupidatat.",
     minter: true,
   },
   {
@@ -22,7 +22,20 @@ module.exports = [
     address: "West One, 100 Wellington St, Leeds",
     postcode: "LS14LT",
     email_address: "me@mine.com",
-    bios: "Ullamco dolor ea ex consequat nostrud fugiat elit minim mollit aliqua incididunt cupidatat.",
+    bio: "Ullamco dolor ea ex consequat nostrud fugiat elit minim mollit aliqua incididunt cupidatat.",
     minter: true,
+  },
+  {
+    username: "Felice",
+    first_name: "Felice",
+    last_name: "Thynne",
+    birth_date: "1930-10-15",
+    avatar_url:
+      "https://robohash.org/exercitationemillumlibero.png?size=50x50&set=set1",
+    address: "2 Melrose Point",
+    postcode: "BD7",
+    email_address: "fthynne0@wordpress.org",
+    bio: "Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",
+    minter: false,
   },
 ];
