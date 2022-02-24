@@ -1,22 +1,13 @@
 const usersRouter = require("express").Router();
-// const {} = require("../controllers/users-controllers.js");
+const {
+  getUsers,
+  getUserByUsername,
+  postUsers,
+  patchUsername,
+} = require("../controllers/users-controllers.js");
 
-usersRouter
-  .route("/")
-  .get((req, res) => {
-    res.status(200).send("All OK from POST /api/users");
-  })
-  .post((req, res) => {
-    res.status(200).send("All OK from POST /api/users");
-  });
+usersRouter.route("/").get(getUsers).post(postUsers);
 
-usersRouter
-  .route("/:username")
-  .get((req, res) => {
-    res.status(200).send("All OK from GET /api/users/:username");
-  })
-  .patch((req, res) => {
-    res.status(200).send("All OK from PATCH /api/users/:username");
-  });
+usersRouter.route("/:username").get(getUserByUsername).patch(patchUsername);
 
 module.exports = usersRouter;
