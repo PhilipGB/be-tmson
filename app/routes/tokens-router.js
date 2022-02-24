@@ -1,25 +1,12 @@
-const tokensRouter = require("express").Router();
-// const {} = require("../controllers/tokens-controllers.js");
+const tokensRouter = require('express').Router();
+const {
+  getTokenById,
+  getTokenData,
+  patchTokenOwner,
+} = require('../controllers/tokens-controllers.js');
 
-tokensRouter
-  .route("/")
-  .get((req, res) => {
-    res.status(200).send("All OK from POST /api/tokens");
-  })
-  .post((req, res) => {
-    res.status(200).send("All OK from POST /api/tokens");
-  })
-  .patch((req, res) => {
-    res.status(200).send("All OK from PATCH /api/tokens");
-  });
+tokensRouter.route('/').get(getTokenData);
 
-tokensRouter
-  .route("/:token")
-  .get((req, res) => {
-    res.status(200).send("All OK from GET /api/tokens/:username");
-  })
-  .patch((req, res) => {
-    res.status(200).send("All OK from PATCH /api/tokens/:username");
-  });
+tokensRouter.route('/:token_id').get(getTokenById).patch(patchTokenOwner);
 
 module.exports = tokensRouter;
