@@ -1,4 +1,4 @@
-const db = require('be-tmson/db/connection.js');
+const db = require('../../db/connection');
 
 exports.fetchSkills = (limit = 'ALL', offset = 0) => {
   return db
