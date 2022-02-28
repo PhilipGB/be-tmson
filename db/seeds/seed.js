@@ -45,7 +45,7 @@ const seed = (data) => {
         return db.query(`
         CREATE TABLE  users (
           user_id SERIAL PRIMARY KEY,
-          firebase_id VARCHAR(28) DEFAULT 'agLS9wrzWRUE64NGNfKqIrocBTG2' NOT NULL,
+          firebase_id VARCHAR(28) NOT NULL,
           username VARCHAR NOT NULL UNIQUE,
           first_name VARCHAR NOT NULL,
           last_name VARCHAR,
@@ -105,7 +105,9 @@ const seed = (data) => {
           skill_id INT REFERENCES skills NOT NULL,
           start_time TIMESTAMP,
           end_time TIMESTAMP,
-          location VARCHAR NOT NULL
+          location VARCHAR NOT NULL,
+          task_name VARCHAR NOT NULL,
+          task_description VARCHAR NOT NULL
         );
       `);
       })
@@ -136,11 +138,12 @@ const seed = (data) => {
         const insertUsers = format(
           `
           INSERT INTO users
-            (username, first_name, last_name, birth_date, avatar_url, address, postcode, email_address, bio, minter)
+            (firebase_id, username, first_name, last_name, birth_date, avatar_url, address, postcode, email_address, bio, minter)
           VALUES
             %L;
           `,
           users.map((user) => [
+            'agLS9wrzWRUE64NGNfKqIrocBTG2',
             user.username,
             user.first_name,
             user.last_name,
@@ -220,7 +223,7 @@ const seed = (data) => {
         const insertTasks = format(
           `
           INSERT INTO tasks
-            (booker_id, provider_id, skill_id, start_time, end_time, location)
+            (booker_id, provider_id, skill_id, start_time, end_time, location, task_name, task_description)
           VALUES
             %L;
           `,
@@ -231,6 +234,8 @@ const seed = (data) => {
             task.start_time,
             task.end_time,
             task.location,
+            `Task ${task.booker_id}`,
+            `Task description ${task.booker_id}`,
           ])
         );
         return db.query(insertTasks);
