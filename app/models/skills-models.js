@@ -51,3 +51,26 @@ exports.addNewSkill = (newSkill) => {
       return res.rows[0];
     });
 };
+
+exports.fetchSkillsById = (skill_id, limit = 'ALL', offset = 0) => {
+  return db
+    .query(
+      `
+        SELECT * 
+        FROM skills
+        WHERE skill_id=$1
+        LIMIT ${limit}
+        OFFSET ${offset};`,
+      [skill_id]
+    )
+    .then((result) => {
+      if (result.rowCount) {
+        console.log(result.rows);
+        return result.rows[0];
+      }
+      return Promise.reject({
+        status: 404,
+        msg: `No category found for "${category}"`,
+      });
+    });
+};

@@ -59,8 +59,7 @@ describe('2. POST /api/skills', () => {
     const newSkill = {
       skill_category: 'languages',
       skill_subcategory: 'latin',
-      skill_description:
-        'Teach Latin speaking and listening to English speakers',
+      skill_description: 'Teach Latin speaking and listening to English speakers',
       thumbnail_image_url: 'http://dummyimage.com/138x100.png/ff4444/ffffff',
     };
     return request(app)
@@ -72,10 +71,8 @@ describe('2. POST /api/skills', () => {
           skill_id: 26,
           skill_category: 'languages',
           skill_subcategory: 'latin',
-          skill_description:
-            'Teach Latin speaking and listening to English speakers',
-          thumbnail_image_url:
-            'http://dummyimage.com/138x100.png/ff4444/ffffff',
+          skill_description: 'Teach Latin speaking and listening to English speakers',
+          thumbnail_image_url: 'http://dummyimage.com/138x100.png/ff4444/ffffff',
         });
       });
   });
@@ -142,6 +139,25 @@ describe('3. GET /api/skills/:skill', () => {
       .expect(404)
       .then((res) => {
         expect(res.body.msg).toEqual('Bad Request - invalid input');
+      });
+  });
+});
+
+describe('4. GET /api/skills/:skill_id', () => {
+  test('status:200, responds with an object of all skills', () => {
+    return request(app)
+      .get('/api/skills/1')
+      .expect(200)
+      .then(({ body }) => {
+        const { skills } = body;
+        expect(skills).toEqual(
+          expect.objectContaining({
+            skill_id: expect.any(Number),
+            skill_category: expect.any(String),
+            skill_subcategory: expect.any(String),
+            thumbnail_image_url: expect.any(String),
+          })
+        );
       });
   });
 });
