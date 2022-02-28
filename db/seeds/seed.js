@@ -41,9 +41,11 @@ const seed = (data) => {
 
       // TODO Create tables
       .then(() => {
+        // DEFAULT value for testing
         return db.query(`
         CREATE TABLE  users (
           user_id SERIAL PRIMARY KEY,
+          firebase_id VARCHAR(28) DEFAULT 'agLS9wrzWRUE64NGNfKqIrocBTG2' NOT NULL,
           username VARCHAR NOT NULL UNIQUE,
           first_name VARCHAR NOT NULL,
           last_name VARCHAR,
@@ -98,8 +100,8 @@ const seed = (data) => {
         return db.query(`
         CREATE TABLE tasks (
           task_id SERIAL PRIMARY KEY,
-          booker_id INT REFERENCES users NOT NULL,
-          provider_id INT REFERENCES users,
+          provider_id INT REFERENCES users NOT NULL,
+          booker_id INT REFERENCES users ,
           skill_id INT REFERENCES skills NOT NULL,
           start_time TIMESTAMP,
           end_time TIMESTAMP,
