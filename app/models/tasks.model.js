@@ -20,8 +20,7 @@ exports.fetchTasks = (sort, order) => {
     });
   }
 
-  let queryStr =
-    'SELECT task_id, skill_id, start_time, end_time, location FROM tasks';
+  let queryStr = 'SELECT task_id, skill_id, start_time, end_time, location FROM tasks';
 
   queryStr += ` ORDER BY ${sort} ${order}`;
 
@@ -32,8 +31,16 @@ exports.fetchTasks = (sort, order) => {
 
 exports.fetchTaskById = (id) => {
   return db
-    .query(`SELECT * FROM tasks WHERE task_id = $1`, [id])
+    .query(
+      `SELECT * 
+    FROM tasks 
+    INNER JOIN skills
+    ON tasks.skill_id=skills.skill_id
+    WHERE task_id = $1`,
+      [id]
+    )
     .then(({ rows }) => {
+      console.log(rows[0]);
       if (!rows[0]) {
         return Promise.reject({
           status: 404,

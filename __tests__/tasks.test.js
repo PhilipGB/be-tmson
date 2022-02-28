@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../app/app.js');
+const { postTask } = require('../app/controllers/tasks-controller.js');
 const db = require('../db/connection.js');
 const testData = require('../db/data/test-data/index.js');
 const seed = require('../db/seeds/seed.js');
@@ -94,11 +95,12 @@ describe('1. GET /api/tasks', () => {
 });
 
 describe('GET /api/tasks/:task_id', () => {
-  test('responds with status: 200 and returns array of task object', () => {
+  test.only('responds with status: 200 and returns array of task object', () => {
     return request(app)
       .get('/api/tasks/1')
       .expect(200)
       .then(({ body: { task } }) => {
+        console.log(task);
         expect(task).toMatchObject({
           booker_id: expect.any(Number),
           provider_id: expect.any(Number),
@@ -106,6 +108,12 @@ describe('GET /api/tasks/:task_id', () => {
           start_time: expect.any(String),
           end_time: expect.any(String),
           location: expect.any(String),
+          thumbnail_image_url: expect.any(String),
+          task_name: expect.any(String),
+          task_description: expect.any(String),
+          skill_category: expect.any(String),
+          skill_subcategory: expect.any(String),
+          skill_description: expect.any(String),
         });
       });
   });
