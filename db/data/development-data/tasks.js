@@ -6,6 +6,8 @@ module.exports = [
     start_time: '2022-02-22 16:13:51 UTC',
     end_time: '2022-02-22 17:13:51 UTC',
     location: 'Zoom',
+    task_name: 'Test task',
+    task_description: 'Test description for task',
   },
   {
     booker_id: 2,
