@@ -1,6 +1,6 @@
-const db = require("../../db/connection.js");
+const db = require('../../db/connection.js');
 
-exports.selectUsers = (limit = "ALL", offset = 0) => {
+exports.selectUsers = (limit = 'ALL', offset = 0) => {
   return db
     .query(
       `
@@ -34,6 +34,7 @@ exports.selectUserByUsername = (username) => {
 };
 
 exports.insertUser = ({
+  firebase_id,
   username,
   first_name,
   last_name,
@@ -49,15 +50,16 @@ exports.insertUser = ({
     .query(
       `
         INSERT INTO users 
-          (username, first_name, last_name,
-            bio, birth_date, avatar_url,
-            address, postcode, email_address,
-            minter) 
+          (firebase_id, username, first_name, 
+            last_name, bio, birth_date, 
+            avatar_url, address, postcode, 
+            email_address, minter) 
         VALUES 
-          ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
+          ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
         RETURNING *;
       `,
       [
+        firebase_id,
         username,
         first_name,
         last_name,
@@ -72,15 +74,15 @@ exports.insertUser = ({
     )
     .then(({ rows }) => rows[0])
     .catch((err) => {
-      if (err.code === "23502") {
+      if (err.code === '23502') {
         return Promise.reject({
           status: 405,
-          msg: "Invalid request body",
+          msg: 'Invalid request body',
         });
-      } else if (err.code === "23505") {
+      } else if (err.code === '23505') {
         return Promise.reject({
           status: 409,
-          msg: "Username already in use",
+          msg: 'Username already in use',
         });
       }
       console.error(err);

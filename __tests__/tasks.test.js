@@ -177,7 +177,7 @@ describe('PATCH /api/tasks/:task_id', () => {
 });
 
 describe('POST /api/tasks/', () => {
-  test.only('responds with status: 200 and responds with newly posted task', () => {
+  test('responds with status: 200 and responds with newly posted task', () => {
     return request(app)
       .post('/api/tasks')
       .send({

@@ -23,6 +23,7 @@ describe('1. GET /api/users', () => {
         expect(body.users[0]).toEqual({
           user_id: expect.any(Number),
           username: expect.any(String),
+          firebase_id: expect.any(String),
           first_name: expect.any(String),
           last_name: expect.any(String),
           bio: expect.any(String),
@@ -46,6 +47,7 @@ describe('2. GET /api/users/:username', () => {
         expect(body).toEqual({
           user: {
             user_id: expect.any(Number),
+            firebase_id: expect.any(String),
             username: 'fthynne0',
             first_name: 'Felice',
             last_name: 'Thynne',
@@ -75,6 +77,7 @@ describe('3. POST /api/users/', () => {
   test('status:201, responds with new user', () => {
     const newUser = {
       username: 'TestUser',
+      firebase_id: 'agLS9wrzWRUE64NGNfKqIrocBTG2',
       first_name: 'Test',
       last_name: 'User',
       birth_date: '2000-01-01T00:00:00.000Z',
@@ -115,6 +118,7 @@ describe('3. POST /api/users/', () => {
   test('status:409, duplicate user name', () => {
     const newUser = {
       username: 'fthynne0',
+      firebase_id: 'agLS9wrzWRUE64NGNfKqIrocBTG2',
       first_name: 'Already',
       last_name: 'Used',
       birth_date: '15-10-1930',
@@ -154,6 +158,7 @@ describe('4. PATCH /api/users/:username', () => {
             expect(body).toEqual({
               user: {
                 user_id: expect.any(Number),
+                firebase_id: expect.any(String),
                 username: 'fthynne0',
                 first_name: 'Felice',
                 last_name: 'UPDATED',
