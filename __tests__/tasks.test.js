@@ -114,8 +114,19 @@ describe('GET /api/tasks/:task_id', () => {
           skill_category: expect.any(String),
           skill_subcategory: expect.any(String),
           skill_description: expect.any(String),
-        });
+          username: expect.any(String),
+          firebase_id: expect.any(String),
+          first_name: expect.any(String),
+          last_name: expect.any(String),
+          bio: expect.any(String),
+          birth_date: expect.any(String),
+          avatar_url: expect.any(String),
+          address: expect.any(String),
+          postcode: expect.any(String),
+          email_address: expect.any(String),
+          minter: expect.any(Boolean),
       });
+    });
   });
   test('responds with status: 404 and error message when passed an ID that does not exist', () => {
     return request(app)

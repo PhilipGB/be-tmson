@@ -36,12 +36,14 @@ exports.fetchTaskById = (id) => {
     FROM tasks 
     INNER JOIN skills
     ON tasks.skill_id=skills.skill_id
+    INNER JOIN users
+    on tasks.booker_id=users.user_id
     WHERE task_id = $1`,
-      [id]
+    [id]
     )
     .then(({ rows }) => {
-      console.log(rows[0]);
       if (!rows[0]) {
+        console.log(rows[0])
         return Promise.reject({
           status: 404,
           msg: 'Not Found',
