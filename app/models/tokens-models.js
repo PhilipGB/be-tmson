@@ -99,3 +99,18 @@ exports.fetchTokenByUserId = (user_id) => {
       });
     });
 };
+
+exports.createNewTransaction = (token_id, task_id) => {
+  return db
+    .query(
+      `INSERT INTO token_transactions (token_id, task_id)
+    VALUES ($1, $2)
+    RETURNING*;
+    `,
+      [token_id, task_id]
+    )
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows[0];
+    });
+};

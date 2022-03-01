@@ -121,7 +121,7 @@ describe('5. POST /api/tokens', () => {
   });
 });
 
-describe.only('6. GET /api/tokens/users/:user_id', () => {
+describe('6. GET /api/tokens/users/:user_id', () => {
   test('status:200, responds with new token', () => {
     return request(app)
       .get('/api/tokens/users/7')
@@ -145,6 +145,28 @@ describe.only('6. GET /api/tokens/users/:user_id', () => {
           token_id: '1',
           user_id: 7,
           username: 'rkleinfeld6',
+        });
+      });
+  });
+});
+
+describe.only('7. POST /api/tokens/transactions', () => {
+  test('status:200, responds with new token', () => {
+    return request(app)
+      .post('/api/tokens/transactions')
+      .send({
+        token_id: 2,
+        task_id: 2,
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { transaction } = body;
+        expect(transaction).toEqual({
+          transaction_id: 21,
+          token_id: '2',
+          task_id: 2,
+          transaction_time: expect.any(String),
+          previous_transaction_id: null,
         });
       });
   });
