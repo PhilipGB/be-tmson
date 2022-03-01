@@ -206,12 +206,11 @@ const seed = (data) => {
         const insertTokens = format(
           `
           INSERT INTO tokens
-            (token_id, generated_date, owner_id, minter_id)
+            (generated_date, owner_id, minter_id)
           VALUES
             %L;
           `,
           tokens.map((token) => [
-            token.token_id,
             token.generated_date,
             token.owner_id,
             token.minter_id,
