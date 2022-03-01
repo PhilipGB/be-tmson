@@ -3,6 +3,7 @@ const {
   fetchTokenById,
   updateTokenOwner,
   mintNewToken,
+  fetchTokenByUserId,
 } = require('../models/tokens-models');
 
 exports.getTokenData = (req, res, next) => {
@@ -44,6 +45,19 @@ exports.postNewToken = (req, res, next) => {
   mintNewToken(minter_id, owner_id)
     .then((token) => {
       res.status(200).send({ token });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+exports.getTokensByUserId = (req, res, next) => {
+  console.log(req.params);
+  const { user_id } = req.params;
+  fetchTokenByUserId(user_id)
+    .then((tokens) => {
+      console.log(tokens);
+      res.status(200).send({ tokens });
     })
     .catch((err) => {
       next(err);

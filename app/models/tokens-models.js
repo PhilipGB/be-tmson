@@ -76,3 +76,26 @@ exports.mintNewToken = (minter_id, owner_id) => {
       return result.rows[0];
     });
 };
+
+exports.fetchTokenByUserId = (user_id) => {
+  console.log(user_id);
+  return db
+    .query(
+      `
+      SELECT *
+      FROM tokens
+      INNER JOIN users
+      ON tokens.owner_id=users.user_id
+      WHERE owner_id=$1;`,
+      [user_id]
+    )
+    .then((result) => {
+      if (result.rowCount) {
+        return result.rows;
+      }
+      return Promise.reject({
+        status: 404,
+        msg: `No token found for ${user_id}`,
+      });
+    });
+};
