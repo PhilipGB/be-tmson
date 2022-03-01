@@ -33,6 +33,8 @@ describe('1. GET /api/tasks', () => {
           expect(task).toMatchObject({
             task_id: expect.any(Number),
             skill_id: expect.any(Number),
+            task_name: expect.any(String),
+            task_description: expect.any(String),
             start_time: expect.any(String),
             end_time: expect.any(String),
             location: expect.any(String),

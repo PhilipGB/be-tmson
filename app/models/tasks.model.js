@@ -20,8 +20,10 @@ exports.fetchTasks = (sort, order) => {
     });
   }
 
-  let queryStr =
-    'SELECT task_id, skill_id, start_time, end_time, location FROM tasks';
+  let queryStr = `SELECT 
+      task_id,task_name, task_description, 
+      skill_id, start_time, end_time, location 
+    FROM tasks`;
 
   queryStr += ` ORDER BY ${sort} ${order}`;
 
