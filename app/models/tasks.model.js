@@ -20,7 +20,8 @@ exports.fetchTasks = (sort, order) => {
     });
   }
 
-  let queryStr = 'SELECT task_id, skill_id, start_time, end_time, location FROM tasks';
+  let queryStr =
+    'SELECT task_id, skill_id, start_time, end_time, location FROM tasks';
 
   queryStr += ` ORDER BY ${sort} ${order}`;
 
@@ -39,11 +40,11 @@ exports.fetchTaskById = (id) => {
     INNER JOIN users
     on tasks.booker_id=users.user_id
     WHERE task_id = $1`,
-    [id]
+      [id]
     )
     .then(({ rows }) => {
       if (!rows[0]) {
-        console.log(rows[0])
+        console.log(rows[0]);
         return Promise.reject({
           status: 404,
           msg: 'Not Found',
@@ -79,26 +80,41 @@ exports.updateTaskById = (body, id) => {
 };
 
 exports.writeNewTask = (body) => {
-  const { booker_id } = body;
-  // const { task_id } = body;
-  const { skill_id } = body;
-  const { start_time } = body;
-  const { end_time } = body;
-  const { location } = body;
+  console.log(body);
+
+  const {
+    provider_id,
+    skill_id,
+    task_name,
+    task_description,
+    start_time,
+    end_time,
+    location,
+  } = body;
+
   return db
     .query(
       `INSERT INTO tasks 
-			(booker_id, skill_id, start_time, end_time, location)
+			(provider_id, skill_id, task_name, task_description, start_time, end_time, location)
 		VALUES
-			($1, $2, $3, $4, $5)
+			($1, $2, $3, $4, $5, $6, $7)
 		RETURNING *
 	`,
-      [booker_id, skill_id, start_time, end_time, location]
+      [
+        provider_id,
+        skill_id,
+        task_name,
+        task_description,
+        start_time,
+        end_time,
+        location,
+      ]
     )
     .then(({ rows }) => {
       return rows[0];
     })
     .catch((err) => {
+      console.log(err);
       if (err.code === '23502') {
         return Promise.reject({
           status: 405,

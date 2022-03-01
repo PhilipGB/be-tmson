@@ -95,7 +95,7 @@ describe('1. GET /api/tasks', () => {
 });
 
 describe('GET /api/tasks/:task_id', () => {
-  test.only('responds with status: 200 and returns array of task object', () => {
+  test('responds with status: 200 and returns array of task object', () => {
     return request(app)
       .get('/api/tasks/1')
       .expect(200)
@@ -125,8 +125,8 @@ describe('GET /api/tasks/:task_id', () => {
           postcode: expect.any(String),
           email_address: expect.any(String),
           minter: expect.any(Boolean),
+        });
       });
-    });
   });
   test('responds with status: 404 and error message when passed an ID that does not exist', () => {
     return request(app)
@@ -197,27 +197,22 @@ describe('PATCH /api/tasks/:task_id', () => {
 
 describe('POST /api/tasks/', () => {
   test('responds with status: 200 and responds with newly posted task', () => {
+    const task = {
+      provider_id: 2,
+      skill_id: 2,
+      task_name: 'Do something',
+      task_description: 'A description of task',
+      start_time: new Date(2022, 1, 17, 19, 0),
+      end_time: new Date(2022, 1, 17, 20, 0),
+      location: 'Scotland',
+    };
     return request(app)
       .post('/api/tasks')
-      .send({
-        booker_id: 2,
-        // task_id: 3,
-        skill_id: 2,
-        start_time: new Date(2022, 1, 17, 19, 0),
-        end_time: new Date(2022, 1, 17, 20, 0),
-        location: 'Scotland',
-      })
+      .send(task)
       .expect(201)
       .then(({ body: { task } }) => {
         expect(task).toBeInstanceOf(Object);
-        expect(task).toMatchObject({
-          booker_id: 1,
-          // task_id: expect.any(Number),
-          skill_id: 2,
-          start_time: expect.any(String),
-          end_time: expect.any(String),
-          location: 'Sk8',
-        });
+        expect(task).toMatchObject({ ...task });
       });
   });
   test('responds with status: 405 and error message when passed a missing request body ', () => {
