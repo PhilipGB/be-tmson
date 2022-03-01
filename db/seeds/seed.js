@@ -143,7 +143,7 @@ const seed = (data) => {
             %L;
           `,
           users.map((user) => [
-            'agLS9wrzWRUE64NGNfKqIrocBTG2',
+            'dDmmSCBxSIUPLmkYavCw7RFxtTQ2',
             user.username,
             user.first_name,
             user.last_name,
