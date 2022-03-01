@@ -125,8 +125,8 @@ describe('GET /api/tasks/:task_id', () => {
           postcode: expect.any(String),
           email_address: expect.any(String),
           minter: expect.any(Boolean),
-        });
       });
+    });
   });
   test('responds with status: 404 and error message when passed an ID that does not exist', () => {
     return request(app)
