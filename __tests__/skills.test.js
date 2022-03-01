@@ -59,7 +59,8 @@ describe('2. POST /api/skills', () => {
     const newSkill = {
       skill_category: 'languages',
       skill_subcategory: 'latin',
-      skill_description: 'Teach Latin speaking and listening to English speakers',
+      skill_description:
+        'Teach Latin speaking and listening to English speakers',
       thumbnail_image_url: 'http://dummyimage.com/138x100.png/ff4444/ffffff',
     };
     return request(app)
@@ -71,21 +72,23 @@ describe('2. POST /api/skills', () => {
           skill_id: 26,
           skill_category: 'languages',
           skill_subcategory: 'latin',
-          skill_description: 'Teach Latin speaking and listening to English speakers',
-          thumbnail_image_url: 'http://dummyimage.com/138x100.png/ff4444/ffffff',
+          skill_description:
+            'Teach Latin speaking and listening to English speakers',
+          thumbnail_image_url:
+            'http://dummyimage.com/138x100.png/ff4444/ffffff',
         });
       });
   });
-  test('status:405, request body missing', () => {
+  test('status:400, request body missing', () => {
     const newSkill = {
       skill_category: 'languages',
     };
     return request(app)
       .post('/api/skills')
       .send(newSkill)
-      .expect(405)
+      .expect(400)
       .then((res) => {
-        expect(res.body).toEqual({ msg: 'Invalid request' });
+        expect(res.body).toEqual({ msg: 'Bad Request' });
       });
   });
 
@@ -99,9 +102,9 @@ describe('2. POST /api/skills', () => {
     return request(app)
       .post('/api/skills')
       .send(newSkill)
-      .expect(401)
+      .expect(400)
       .then((res) => {
-        expect(res.body).toEqual({ msg: 'Bad request' });
+        expect(res.body).toEqual({ msg: 'Bad Request' });
       });
   });
 });

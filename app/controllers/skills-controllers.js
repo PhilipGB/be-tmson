@@ -40,6 +40,7 @@ exports.postNewSkill = (req, res, next) => {
 
 exports.getSkillsById = (req, res, next) => {
   const { skill_id } = req.params;
+
   fetchSkillsById(skill_id)
     .then((skills) => {
       res.status(200).send({ skills });
