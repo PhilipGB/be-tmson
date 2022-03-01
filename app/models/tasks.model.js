@@ -43,6 +43,7 @@ exports.fetchTaskById = (id) => {
     )
     .then(({ rows }) => {
       if (!rows[0]) {
+        console.log(rows[0])
         return Promise.reject({
           status: 404,
           msg: 'Not Found',
