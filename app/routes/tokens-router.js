@@ -3,9 +3,10 @@ const {
   getTokenById,
   getTokenData,
   patchTokenOwner,
+  postNewToken,
 } = require('../controllers/tokens-controllers.js');
 
-tokensRouter.route('/').get(getTokenData);
+tokensRouter.route('/').get(getTokenData).post(postNewToken);
 
 tokensRouter.route('/:token_id').get(getTokenById).patch(patchTokenOwner);
 

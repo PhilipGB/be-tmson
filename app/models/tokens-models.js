@@ -62,3 +62,17 @@ exports.updateTokenOwner = (token_id, owner_id) => {
 
 // Struggling to create a transaction from the object provided - missing TASK_ID.
 // Could insert previous_transaction from a SELECT?
+
+exports.mintNewToken = (minter_id, owner_id) => {
+  return db
+    .query(
+      `INSERT INTO tokens (owner_id, minter_id)
+        VALUES ($1, $2)
+        RETURNING*;
+    `,
+      [owner_id, minter_id]
+    )
+    .then((result) => {
+      return result.rows[0];
+    });
+};

@@ -99,3 +99,24 @@ describe('4. PATCH /api/tokens:token_id', () => {
       });
   });
 });
+
+describe.only('4. POST /api/tokens', () => {
+  test('status:200, responds with new token', () => {
+    return request(app)
+      .post('/api/tokens')
+      .send({
+        minter_id: 1,
+        owner_id: 2,
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { token } = body;
+        expect(token).toEqual({
+          generated_date: expect.any(String),
+          minter_id: expect.any(Number),
+          owner_id: 2,
+          token_id: expect.any(String),
+        });
+      });
+  });
+});
