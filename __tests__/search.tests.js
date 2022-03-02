@@ -73,4 +73,18 @@ describe('Search end point tests', () => {
         );
       });
   });
+
+  it.only('5. Array of results for multi word search string based on skill description', () => {
+    return request(app)
+      .get('/api/search?q=speaking listening')
+      .expect(200)
+      .then((res) => {
+        console.log(res.body);
+        expect(res.body).toEqual(
+          expect.objectContaining({
+            results: expect.any(Array),
+          })
+        );
+      });
+  });
 });

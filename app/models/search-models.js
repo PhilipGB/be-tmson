@@ -30,11 +30,14 @@ exports.fetchSeachResults = (search, limit = 'ALL', offset = 0) => {
       OR
       skill_category  ~* ANY(ARRAY[%L])
       OR
+      skill_description  ~* ANY(ARRAY[%L])
+      OR
       task_name ~* ANY(ARRAY[%L])
     ORDER BY 
       start_time DESC
     LIMIT ${limit} OFFSET ${offset};
     `,
+    searchTerms,
     searchTerms,
     searchTerms,
     searchTerms
