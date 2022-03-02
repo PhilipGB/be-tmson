@@ -46,7 +46,6 @@ exports.fetchTaskById = (id) => {
     )
     .then(({ rows }) => {
       if (!rows[0]) {
-        console.log(rows[0]);
         return Promise.reject({
           status: 404,
           msg: 'Not Found',
@@ -82,8 +81,6 @@ exports.updateTaskById = (body, id) => {
 };
 
 exports.writeNewTask = (body) => {
-  console.log(body);
-
   const {
     provider_id,
     skill_id,
@@ -116,7 +113,6 @@ exports.writeNewTask = (body) => {
       return rows[0];
     })
     .catch((err) => {
-      console.log(err);
       if (err.code === '23502') {
         return Promise.reject({
           status: 405,
@@ -131,7 +127,6 @@ exports.eraseTask = (id) => {
     .query(`DELETE FROM tasks WHERE task_id = $1 RETURNING *`, [id])
     .then(({ rows }) => {})
     .catch((err) => {
-      console.log('Delete Error: >> ', err);
       throw err;
     });
 };

@@ -20,7 +20,6 @@ exports.getTaskById = (req, res, next) => {
   const { task_id } = req.params;
   fetchTaskById(task_id)
     .then((task) => {
-      console.log(task);
       res.status(200).send({ task });
     })
     .catch(next);

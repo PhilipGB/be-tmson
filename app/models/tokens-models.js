@@ -22,7 +22,6 @@ exports.fetchTokenData = (start, end) => {
 };
 
 exports.fetchTokenById = (token_id) => {
-  console.log(token_id);
   return db
     .query(
       `

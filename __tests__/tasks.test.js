@@ -102,7 +102,6 @@ describe('GET /api/tasks/:task_id', () => {
       .get('/api/tasks/1')
       .expect(200)
       .then(({ body: { task } }) => {
-        console.log(task);
         expect(task).toMatchObject({
           booker_id: expect.any(Number),
           provider_id: expect.any(Number),

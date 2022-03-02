@@ -13,8 +13,6 @@ exports.fetchSeachResults = (search, limit = 'ALL', offset = 0) => {
     .match(/(".*?"|[^" \s]+)(?=\s* |\s*$)/g)
     .map((term) => term.replaceAll('"', ''));
 
-  console.log(searchTerms);
-
   const searchQuery = format(
     `
     SELECT 

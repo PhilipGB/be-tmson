@@ -1,4 +1,8 @@
-const { fetchTokenData, fetchTokenById, updateTokenOwner } = require('../models/tokens-models');
+const {
+  fetchTokenData,
+  fetchTokenById,
+  updateTokenOwner,
+} = require('../models/tokens-models');
 
 exports.getTokenData = (req, res, next) => {
   const { start, end } = req.query;
@@ -7,7 +11,6 @@ exports.getTokenData = (req, res, next) => {
       res.status(200).send({ tokens });
     })
     .catch((err) => {
-      console.log(err);
       next(err);
     });
 };
