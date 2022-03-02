@@ -74,7 +74,7 @@ describe('Search end point tests', () => {
       });
   });
 
-  it.only('5. Array of results for multi word search string based on skill description', () => {
+  it('5. Array of results for multi word search string based on skill description', () => {
     return request(app)
       .get('/api/search?q=speaking listening')
       .expect(200)
