@@ -108,10 +108,10 @@ describe('2. POST /api/skills', () => {
       });
   });
 });
-describe('3. GET /api/skills/:skill', () => {
+describe('3. GET /api/skills/categories/:skill', () => {
   test('status:200, responds with an object of all skills from selected category', () => {
     return request(app)
-      .get('/api/skills/languages')
+      .get('/api/skills/categories/languages')
       .expect(200)
       .then(({ body }) => {
         const { skills } = body;
@@ -130,7 +130,7 @@ describe('3. GET /api/skills/:skill', () => {
   });
   test('status: 404, responds with "Bad Request - Invalid category" when category does not exist', () => {
     return request(app)
-      .get('/api/skills/notacategory')
+      .get('/api/skills/categories/notacategory')
       .expect(404)
       .then((res) => {
         expect(res.body.msg).toEqual('No category found for "notacategory"');
@@ -138,10 +138,10 @@ describe('3. GET /api/skills/:skill', () => {
   });
   test('status: 400, responds with "Bad Request - Invalid category" when category is in wrong format', () => {
     return request(app)
-      .get('/api/skills/99999')
+      .get('/api/skills/categories/99999')
       .expect(404)
       .then((res) => {
-        expect(res.body.msg).toEqual('Bad Request - invalid input');
+        expect(res.body.msg).toEqual('No category found for "99999"');
       });
   });
 });
