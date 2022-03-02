@@ -82,7 +82,7 @@ exports.updateTaskById = (body, id) => {
 
 exports.writeNewTask = (body) => {
   const {
-    provider_id,
+    booker_id,
     skill_id,
     task_name,
     task_description,
@@ -94,13 +94,13 @@ exports.writeNewTask = (body) => {
   return db
     .query(
       `INSERT INTO tasks 
-			(provider_id, skill_id, task_name, task_description, start_time, end_time, location)
+			(booker_id, skill_id, task_name, task_description, start_time, end_time, location)
 		VALUES
 			($1, $2, $3, $4, $5, $6, $7)
 		RETURNING *
 	`,
       [
-        provider_id,
+        booker_id,
         skill_id,
         task_name,
         task_description,

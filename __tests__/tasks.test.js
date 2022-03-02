@@ -199,7 +199,7 @@ describe('PATCH /api/tasks/:task_id', () => {
 describe('POST /api/tasks/', () => {
   test('responds with status: 200 and responds with newly posted task', () => {
     const task = {
-      provider_id: 2,
+      booker_id: 2,
       skill_id: 2,
       task_name: 'Do something',
       task_description: 'A description of task',

@@ -100,8 +100,8 @@ const seed = (data) => {
         return db.query(`
         CREATE TABLE tasks (
           task_id SERIAL PRIMARY KEY,
-          provider_id INT REFERENCES users NOT NULL,
-          booker_id INT REFERENCES users ,
+          booker_id INT REFERENCES users NOT NULL,
+          provider_id INT REFERENCES users,
           skill_id INT REFERENCES skills NOT NULL,
           start_time TIMESTAMP,
           end_time TIMESTAMP,
