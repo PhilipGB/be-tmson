@@ -4,6 +4,7 @@ const {
   updateTaskById,
   writeNewTask,
   eraseTask,
+  fetchUserTasks,
 } = require('../models/tasks.model');
 
 exports.getTasks = (req, res, next) => {
@@ -51,4 +52,11 @@ exports.deleteTask = (req, res, next) => {
       res.status(204).send({ msg: 'No Content' });
     })
     .catch(next);
+};
+
+exports.getUserTasks = (req, res, next) => {
+  const { user_id } = req.params;
+  fetchUserTasks(user_id).then(() => {
+    res.status(200).send({ tasks });
+  });
 };

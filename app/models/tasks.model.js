@@ -39,11 +39,11 @@ exports.fetchTaskById = (id) => {
     INNER JOIN users
     on tasks.booker_id=users.user_id
     WHERE task_id = $1`,
-    [id]
+      [id]
     )
     .then(({ rows }) => {
       if (!rows[0]) {
-        console.log(rows[0])
+        console.log(rows[0]);
         return Promise.reject({
           status: 404,
           msg: 'Not Found',
@@ -52,7 +52,7 @@ exports.fetchTaskById = (id) => {
       return rows[0];
     });
 };
-
+// amend this to take update on task_complete?
 exports.updateTaskById = (body, id) => {
   const { location } = body;
   const { skill_id } = body;
@@ -115,5 +115,28 @@ exports.eraseTask = (id) => {
     .catch((err) => {
       console.log('Delete Error: >> ', err);
       throw err;
+    });
+};
+
+// added end point to get tasks by user ID that are still live
+exports.fetchUserTasks = (user_id) => {
+  return db
+    .query(
+      `SELECT * 
+    FROM tasks 
+    WHERE booker_id = $1
+    AND task_complete = false
+    RETURNING*;`,
+      [user_id]
+    )
+    .then(({ rows }) => {
+      if (!rows[0]) {
+        console.log(rows[0]);
+        return Promise.reject({
+          status: 404,
+          msg: 'Not Found',
+        });
+      }
+      return rows;
     });
 };
