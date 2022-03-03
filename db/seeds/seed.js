@@ -107,7 +107,9 @@ const seed = (data) => {
           end_time TIMESTAMP,
           location VARCHAR NOT NULL,
           task_name VARCHAR NOT NULL,
-          task_description VARCHAR NOT NULL
+          task_description VARCHAR NOT NULL,
+          task_booking_confirmed VARCHAR NOT NULL DEFAULT 'null',
+          task_completed VARCHAR NOT NULL DEFAULT 'null'
         );
       `);
       })
@@ -222,7 +224,7 @@ const seed = (data) => {
         const insertTasks = format(
           `
           INSERT INTO tasks
-            (booker_id, provider_id, skill_id, start_time, end_time, location, task_name, task_description)
+            (booker_id, provider_id, skill_id, start_time, end_time, location, task_name, task_description, task_booking_confirmed, task_completed)
           VALUES
             %L;
           `,
@@ -235,6 +237,8 @@ const seed = (data) => {
             task.location,
             `Task ${task.booker_id}`,
             `Task description ${task.booker_id}`,
+            'null',
+            'null'
           ])
         );
         return db.query(insertTasks);
