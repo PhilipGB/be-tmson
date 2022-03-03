@@ -61,3 +61,55 @@ exports.updateTokenOwner = (token_id, owner_id) => {
 
 // Struggling to create a transaction from the object provided - missing TASK_ID.
 // Could insert previous_transaction from a SELECT?
+
+exports.mintNewToken = (minter_id, owner_id) => {
+  return db
+    .query(
+      `INSERT INTO tokens (owner_id, minter_id)
+        VALUES ($1, $2)
+        RETURNING*;
+    `,
+      [owner_id, minter_id]
+    )
+    .then((result) => {
+      return result.rows[0];
+    });
+};
+
+exports.fetchTokenByUserId = (user_id) => {
+  console.log(user_id);
+  return db
+    .query(
+      `
+      SELECT *
+      FROM tokens
+      INNER JOIN users
+      ON tokens.owner_id=users.user_id
+      WHERE owner_id=$1;`,
+      [user_id]
+    )
+    .then((result) => {
+      if (result.rowCount) {
+        return result.rows;
+      }
+      return Promise.reject({
+        status: 404,
+        msg: `No token found for ${user_id}`,
+      });
+    });
+};
+
+exports.createNewTransaction = (token_id, task_id) => {
+  return db
+    .query(
+      `INSERT INTO token_transactions (token_id, task_id)
+    VALUES ($1, $2)
+    RETURNING*;
+    `,
+      [token_id, task_id]
+    )
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows[0];
+    });
+};

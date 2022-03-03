@@ -4,6 +4,8 @@ const {
   updateTaskById,
   writeNewTask,
   eraseTask,
+  fetchUserTasks,
+  approveTaskById,
 } = require('../models/tasks.model');
 
 exports.getTasks = (req, res, next) => {
@@ -48,6 +50,26 @@ exports.deleteTask = (req, res, next) => {
   eraseTask(task_id)
     .then(() => {
       res.status(204).send({ msg: 'No Content' });
+    })
+    .catch(next);
+};
+
+exports.getUserTasks = (req, res, next) => {
+  console.log(req);
+  const { user_id } = req.params;
+  fetchUserTasks(user_id)
+    .then((tasks) => {
+      console.log(tasks);
+      res.status(200).send({ tasks });
+    })
+    .catch(next);
+};
+
+exports.patchTaskToApproved = (req, res, next) => {
+  const { task_id } = req.params;
+  approveTaskById(task_id)
+    .then((task) => {
+      res.status(200).send({ task });
     })
     .catch(next);
 };

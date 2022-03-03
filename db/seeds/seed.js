@@ -168,10 +168,7 @@ const seed = (data) => {
           VALUES
             %L;
           `,
-          skill_categories.map((category) => [
-            category.slug,
-            category.description,
-          ])
+          skill_categories.map((category) => [category.slug, category.description])
         );
         return db.query(insertSkillCategories);
       })
@@ -268,11 +265,7 @@ const seed = (data) => {
           VALUES
             %L;
           `,
-          ratings.map((rating) => [
-            rating.task_id,
-            rating.rating,
-            rating.comment,
-          ])
+          ratings.map((rating) => [rating.task_id, rating.rating, rating.comment])
         );
         return db.query(insertRatings);
       })

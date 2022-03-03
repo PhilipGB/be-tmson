@@ -53,7 +53,7 @@ exports.fetchTaskById = (id) => {
       return rows[0];
     });
 };
-
+// amend this to take update on task_complete?
 exports.updateTaskById = (body, id) => {
   const { booker_id } = body;
   const { provider_id } = body;
@@ -131,5 +131,48 @@ exports.eraseTask = (id) => {
     .then(({ rows }) => {})
     .catch((err) => {
       throw err;
+    });
+};
+
+// added end point to get tasks by user ID that are still live
+exports.fetchUserTasks = (user_id) => {
+  return db
+    .query(
+      `SELECT * 
+    FROM tasks 
+    WHERE booker_id = $1
+    AND task_complete = false
+    RETURNING*;`,
+      [user_id]
+    )
+    .then(({ rows }) => {
+      if (!rows[0]) {
+        console.log(rows[0]);
+        return Promise.reject({
+          status: 404,
+          msg: 'Not Found',
+        });
+      }
+      return rows;
+    });
+};
+
+exports.approveTaskById = (task_id) => {
+  return db
+    .query(
+      `UPDATE tasks SET task_completed=true 
+      WHERE task_id=$1
+      RETURNING *`,
+      [task_id]
+    )
+    .then(({ rows }) => {
+      if (!rows.length) {
+        return Promise.reject({
+          status: 404,
+          msg: 'ID not found',
+        });
+      } else {
+        return rows[0];
+      }
     });
 };
