@@ -39,7 +39,7 @@ describe('1. GET /api/tasks', () => {
             end_time: expect.any(String),
             location: expect.any(String),
             task_booking_confirmed: expect.any(String),
-            task_completed: expect.any(String)
+            task_completed: expect.any(String),
           });
         });
       });
@@ -127,8 +127,8 @@ describe('GET /api/tasks/:task_id', () => {
           address: expect.any(String),
           postcode: expect.any(String),
           email_address: expect.any(String),
-          minter: expect.any(Boolean)
-          task_completed: expect.any(String)
+          minter: expect.any(Boolean),
+          task_completed: expect.any(String),
         });
       });
   });
@@ -160,11 +160,11 @@ describe('PATCH /api/tasks/:task_id', () => {
         skill_id: 1,
         start_time: new Date(2022, 1, 17, 19, 0),
         end_time: new Date(2022, 1, 17, 20, 0),
-        location: 'The moon',   
+        location: 'The moon',
         task_name: 'Task name 1',
         task_description: 'Write a test',
-        task_booking_confirmed: 'false',  
-        task_completed: 'true'
+        task_booking_confirmed: 'false',
+        task_completed: 'true',
       })
       .expect(200)
       .then(({ body: { task } }) => {
@@ -175,11 +175,11 @@ describe('PATCH /api/tasks/:task_id', () => {
           skill_id: 1,
           start_time: expect.any(String),
           end_time: expect.any(String),
-          location: 'The moon',   
+          location: 'The moon',
           task_name: 'Task name 1',
           task_description: 'Write a test',
-          task_booking_confirmed: 'false',  
-          task_completed: 'true'
+          task_booking_confirmed: 'false',
+          task_completed: 'true',
         });
       });
   });
@@ -264,7 +264,7 @@ describe('DELETE - /api/tasks/:task_id', () => {
   });
 });
 
-describe.only('New: will fail until merged - GET /api/tasks/my-account/:user_id', () => {
+describe('New: will fail until merged - GET /api/tasks/my-account/:user_id', () => {
   test('responds with status: 200 and returns an array of task objects by user_id', () => {
     return request(app)
       .get('/api/tasks/my-account/1')
@@ -285,7 +285,7 @@ describe.only('New: will fail until merged - GET /api/tasks/my-account/:user_id'
   });
 });
 
-describe.only('New: will fail until merged - PATCH /api/tasks/my-account/approve/:taskid', () => {
+describe('New: will fail until merged - PATCH /api/tasks/my-account/approve/:taskid', () => {
   test('respond with status 200 ', () => {
     return request(app)
       .patch('/api/tasks/my-account/approve/1')
