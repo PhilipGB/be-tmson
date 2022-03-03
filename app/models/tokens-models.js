@@ -57,11 +57,6 @@ exports.updateTokenOwner = (token_id, owner_id) => {
     });
 };
 
-//`INSERT INTO token_transactions (token_id, task_id, previous_transaction)`
-
-// Struggling to create a transaction from the object provided - missing TASK_ID.
-// Could insert previous_transaction from a SELECT?
-
 exports.mintNewToken = (minter_id, owner_id) => {
   return db
     .query(
@@ -77,7 +72,6 @@ exports.mintNewToken = (minter_id, owner_id) => {
 };
 
 exports.fetchTokenByUserId = (user_id) => {
-  console.log(user_id);
   return db
     .query(
       `
@@ -109,7 +103,6 @@ exports.createNewTransaction = (token_id, task_id) => {
       [token_id, task_id]
     )
     .then((result) => {
-      console.log(result.rows);
       return result.rows[0];
     });
 };

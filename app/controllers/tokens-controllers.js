@@ -56,7 +56,6 @@ exports.getTokensByUserId = (req, res, next) => {
   const { user_id } = req.params;
   fetchTokenByUserId(user_id)
     .then((tokens) => {
-      console.log(tokens);
       res.status(200).send({ tokens });
     })
     .catch((err) => {
@@ -65,7 +64,6 @@ exports.getTokensByUserId = (req, res, next) => {
 };
 
 exports.postNewTransaction = (req, res, next) => {
-  console.log(req.body);
   const { token_id, task_id } = req.body;
   createNewTransaction(token_id, task_id)
     .then((transaction) => {
