@@ -31,8 +31,8 @@ exports.getTokenById = (req, res, next) => {
 };
 
 exports.patchTokenOwner = (req, res, next) => {
-  const { token_id, owner_id, minter_id } = req.body;
-  updateTokenOwner(token_id, owner_id, minter_id)
+  const { token_id, owner_id } = req.body;
+  updateTokenOwner(token_id, owner_id)
     .then((token) => {
       res.status(200).send({ token });
     })

@@ -150,7 +150,7 @@ describe('6. GET /api/tokens/users/:user_id', () => {
   });
 });
 
-describe.only('7. POST /api/tokens/transactions', () => {
+describe('7. POST /api/tokens/transactions', () => {
   test('status:200, responds with new token', () => {
     return request(app)
       .post('/api/tokens/transactions')

@@ -95,7 +95,7 @@ describe('1. GET /api/tasks', () => {
 });
 
 describe('GET /api/tasks/:task_id', () => {
-  test.only('responds with status: 200 and returns array of task object', () => {
+  test('responds with status: 200 and returns array of task object', () => {
     return request(app)
       .get('/api/tasks/1')
       .expect(200)
@@ -125,8 +125,8 @@ describe('GET /api/tasks/:task_id', () => {
           postcode: expect.any(String),
           email_address: expect.any(String),
           minter: expect.any(Boolean),
+        });
       });
-    });
   });
   test('responds with status: 404 and error message when passed an ID that does not exist', () => {
     return request(app)
@@ -253,6 +253,51 @@ describe('DELETE - /api/tasks/:task_id', () => {
       .expect(400)
       .then(({ body: { msg } }) => {
         expect(msg).toBe('Bad Request');
+      });
+  });
+});
+
+describe.only('New: will fail until merged - GET /api/tasks/my-account/:user_id', () => {
+  test('responds with status: 200 and returns an array of task objects by user_id', () => {
+    return request(app)
+      .get('/api/tasks/my-account/1')
+      .expect(200)
+      .then(({ body: { tasks } }) => {
+        expect(tasks).toEqual({
+          booker_id: 1,
+          provider_id: 14,
+          skill_id: 2,
+          start_time: '2022-02-22 16:13:51 UTC',
+          end_time: '2022-02-22 17:13:51 UTC',
+          location: 'Zoom',
+          task_name: 'Test task',
+          task_description: 'Test description for task',
+          task_completed: false,
+        });
+      });
+  });
+});
+
+describe.only('New: will fail until merged - PATCH /api/tasks/my-account/approve/:taskid', () => {
+  test('respond with status 200 ', () => {
+    return request(app)
+      .patch('/api/tasks/my-account/approve/1')
+      .send({
+        task_id: 1,
+      })
+      .expect(201)
+      .then(({ body: { task } }) => {
+        expect(task).toEqual({
+          booker_id: 1,
+          provider_id: 14,
+          skill_id: 2,
+          start_time: '2022-02-22 16:13:51 UTC',
+          end_time: '2022-02-22 17:13:51 UTC',
+          location: 'Zoom',
+          task_name: 'Test task',
+          task_description: 'Test description for task',
+          task_completed: true,
+        });
       });
   });
 });

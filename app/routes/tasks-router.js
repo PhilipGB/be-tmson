@@ -5,6 +5,7 @@ const {
   postTask,
   deleteTask,
   getUserTasks,
+  patchTaskToApproved,
 } = require('../controllers/tasks-controller');
 
 const tasksRouter = require('express').Router();
@@ -20,6 +21,7 @@ tasksRouter
 
 tasksRouter.route('/:task_id').get(getTaskById).patch(patchTaskById).delete(deleteTask);
 
-tasksRouter.route('/my-account/:user_id').get(getUserTasks); // new route added
+tasksRouter.route('/my-account/:user_id').get(getUserTasks); // new route
+tasksRouter.route('/my-account/approve/:task_id').get(patchTaskToApproved); // new route
 
 module.exports = tasksRouter;

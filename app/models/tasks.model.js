@@ -140,3 +140,23 @@ exports.fetchUserTasks = (user_id) => {
       return rows;
     });
 };
+
+exports.approveTaskById = (task_id) => {
+  return db
+    .query(
+      `UPDATE tasks SET task_completed=true 
+      WHERE task_id=$1
+      RETURNING *`,
+      [task_id]
+    )
+    .then(({ rows }) => {
+      if (!rows.length) {
+        return Promise.reject({
+          status: 404,
+          msg: 'ID not found',
+        });
+      } else {
+        return rows[0];
+      }
+    });
+};

@@ -108,7 +108,6 @@ const seed = (data) => {
           location VARCHAR NOT NULL,
           task_name VARCHAR NOT NULL,
           task_description VARCHAR NOT NULL,
-          task_complete BOO DEFAULT false, 
         );
       `);
       })
