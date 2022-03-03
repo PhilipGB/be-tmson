@@ -64,7 +64,6 @@ exports.getUserTasks = (req, res, next) => {
 };
 
 exports.patchTaskToApproved = (req, res, next) => {
-  console.log(req.params);
   const { task_id } = req.params;
   approveTaskById(task_id)
     .then((task) => {

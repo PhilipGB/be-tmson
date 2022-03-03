@@ -154,7 +154,6 @@ exports.fetchUserTasks = (user_id) => {
 };
 
 exports.approveTaskById = (task_id) => {
-  console.log(task_id);
   return db
     .query(
       `UPDATE tasks SET task_completed=true 
@@ -163,7 +162,6 @@ exports.approveTaskById = (task_id) => {
       [task_id]
     )
     .then((result) => {
-      console.log(result.rows);
       return result.rows[0];
     });
 };
