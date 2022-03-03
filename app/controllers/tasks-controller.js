@@ -55,21 +55,21 @@ exports.deleteTask = (req, res, next) => {
 };
 
 exports.getUserTasks = (req, res, next) => {
-  console.log(req);
   const { user_id } = req.params;
   fetchUserTasks(user_id)
     .then((tasks) => {
-      console.log(tasks);
       res.status(200).send({ tasks });
     })
     .catch(next);
 };
 
 exports.patchTaskToApproved = (req, res, next) => {
+  console.log(req.params);
   const { task_id } = req.params;
   approveTaskById(task_id)
     .then((task) => {
-      res.status(200).send({ task });
+      console.log(task);
+      res.status(201).send({ task });
     })
     .catch(next);
 };

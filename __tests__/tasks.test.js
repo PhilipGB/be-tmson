@@ -264,23 +264,27 @@ describe('DELETE - /api/tasks/:task_id', () => {
   });
 });
 
-describe('New: will fail until merged - GET /api/tasks/my-account/:user_id', () => {
+describe('GET /api/tasks/my-account/:user_id', () => {
   test('responds with status: 200 and returns an array of task objects by user_id', () => {
     return request(app)
       .get('/api/tasks/my-account/1')
       .expect(200)
       .then(({ body: { tasks } }) => {
-        expect(tasks).toEqual({
-          booker_id: 1,
-          provider_id: 14,
-          skill_id: 2,
-          start_time: '2022-02-22 16:13:51 UTC',
-          end_time: '2022-02-22 17:13:51 UTC',
-          location: 'Zoom',
-          task_name: 'Test task',
-          task_description: 'Test description for task',
-          task_completed: false,
-        });
+        expect(tasks).toEqual([
+          {
+            booker_id: 1,
+            provider_id: 14,
+            skill_id: 2,
+            start_time: expect.any(String),
+            end_time: expect.any(String),
+            location: 'Zoom',
+            task_name: 'Task 1',
+            task_description: 'Task description 1',
+            task_id: 1,
+            task_booking_confirmed: 'null',
+            task_completed: 'null',
+          },
+        ]);
       });
   });
 });
@@ -298,12 +302,14 @@ describe('New: will fail until merged - PATCH /api/tasks/my-account/approve/:tas
           booker_id: 1,
           provider_id: 14,
           skill_id: 2,
-          start_time: '2022-02-22 16:13:51 UTC',
-          end_time: '2022-02-22 17:13:51 UTC',
+          start_time: expect.any(String),
+          end_time: expect.any(String),
           location: 'Zoom',
-          task_name: 'Test task',
-          task_description: 'Test description for task',
-          task_completed: true,
+          task_name: 'Task 1',
+          task_id: 1,
+          task_booking_confirmed: 'null',
+          task_description: 'Task description 1',
+          task_completed: 'true',
         });
       });
   });

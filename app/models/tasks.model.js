@@ -69,7 +69,19 @@ exports.updateTaskById = (body, id) => {
   return db
     .query(
       `UPDATE tasks SET booker_id = $1, provider_id = $2, location = $3, skill_id = $4, task_name = $5, task_description = $6, start_time = $7, end_time = $8, task_booking_confirmed = $9, task_completed = $10  WHERE task_id = $11 RETURNING *`,
-      [booker_id, provider_id, location, skill_id, task_name, task_description, start_time, end_time, task_booking_confirmed, task_completed, id]
+      [
+        booker_id,
+        provider_id,
+        location,
+        skill_id,
+        task_name,
+        task_description,
+        start_time,
+        end_time,
+        task_booking_confirmed,
+        task_completed,
+        id,
+      ]
     )
     .then(({ rows }) => {
       if (!rows.length) {
@@ -84,15 +96,7 @@ exports.updateTaskById = (body, id) => {
 };
 
 exports.writeNewTask = (body) => {
-  const {
-    booker_id,
-    skill_id,
-    task_name,
-    task_description,
-    start_time,
-    end_time,
-    location,
-  } = body;
+  const { booker_id, skill_id, task_name, task_description, start_time, end_time, location } = body;
 
   return db
     .query(
@@ -102,15 +106,7 @@ exports.writeNewTask = (body) => {
 			($1, $2, $3, $4, $5, $6, $7)
 		RETURNING *
 	`,
-      [
-        booker_id,
-        skill_id,
-        task_name,
-        task_description,
-        start_time,
-        end_time,
-        location,
-      ]
+      [booker_id, skill_id, task_name, task_description, start_time, end_time, location]
     )
     .then(({ rows }) => {
       return rows[0];
@@ -141,23 +137,24 @@ exports.fetchUserTasks = (user_id) => {
       `SELECT * 
     FROM tasks 
     WHERE booker_id = $1
-    AND task_complete = false
-    RETURNING*;`,
+    AND task_completed LIKE 'null'
+    `,
       [user_id]
     )
-    .then(({ rows }) => {
-      if (!rows[0]) {
-        console.log(rows[0]);
+    .then((result) => {
+      if (!result.rows[0]) {
+        result.rows[0];
         return Promise.reject({
           status: 404,
           msg: 'Not Found',
         });
       }
-      return rows;
+      return result.rows;
     });
 };
 
 exports.approveTaskById = (task_id) => {
+  console.log(task_id);
   return db
     .query(
       `UPDATE tasks SET task_completed=true 
@@ -165,14 +162,8 @@ exports.approveTaskById = (task_id) => {
       RETURNING *`,
       [task_id]
     )
-    .then(({ rows }) => {
-      if (!rows.length) {
-        return Promise.reject({
-          status: 404,
-          msg: 'ID not found',
-        });
-      } else {
-        return rows[0];
-      }
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows[0];
     });
 };
