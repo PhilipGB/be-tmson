@@ -100,14 +100,16 @@ const seed = (data) => {
         return db.query(`
         CREATE TABLE tasks (
           task_id SERIAL PRIMARY KEY,
-          provider_id INT REFERENCES users NOT NULL,
-          booker_id INT REFERENCES users ,
+          booker_id INT REFERENCES users NOT NULL,
+          provider_id INT REFERENCES users,
           skill_id INT REFERENCES skills NOT NULL,
           start_time TIMESTAMP,
           end_time TIMESTAMP,
           location VARCHAR NOT NULL,
           task_name VARCHAR NOT NULL,
           task_description VARCHAR NOT NULL,
+          task_booking_confirmed VARCHAR NOT NULL DEFAULT 'null',
+          task_completed VARCHAR NOT NULL DEFAULT 'null'
         );
       `);
       })
@@ -203,12 +205,11 @@ const seed = (data) => {
         const insertTokens = format(
           `
           INSERT INTO tokens
-            (token_id, generated_date, owner_id, minter_id)
+            (generated_date, owner_id, minter_id)
           VALUES
             %L;
           `,
           tokens.map((token) => [
-            token.token_id,
             token.generated_date,
             token.owner_id,
             token.minter_id,
@@ -220,7 +221,7 @@ const seed = (data) => {
         const insertTasks = format(
           `
           INSERT INTO tasks
-            (booker_id, provider_id, skill_id, start_time, end_time, location, task_name, task_description)
+            (booker_id, provider_id, skill_id, start_time, end_time, location, task_name, task_description, task_booking_confirmed, task_completed)
           VALUES
             %L;
           `,
@@ -233,6 +234,8 @@ const seed = (data) => {
             task.location,
             `Task ${task.booker_id}`,
             `Task description ${task.booker_id}`,
+            'null',
+            'null'
           ])
         );
         return db.query(insertTasks);

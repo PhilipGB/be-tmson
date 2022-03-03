@@ -36,18 +36,25 @@ exports.fetchSkillsByCategory = (category, limit = 'ALL', offset = 0) => {
 };
 
 exports.addNewSkill = (newSkill) => {
-  console.log(newSkill);
-  const { skill_category, skill_subcategory, skill_description, thumbnail_image_url } = newSkill;
-  console.log(skill_subcategory);
+  const {
+    skill_category,
+    skill_subcategory,
+    skill_description,
+    thumbnail_image_url,
+  } = newSkill;
   return db
     .query(
       `INSERT INTO skills (skill_category, skill_subcategory, skill_description, thumbnail_image_url)
         VALUES ($1, $2, $3, $4)
         RETURNING*;`,
-      [skill_category, skill_subcategory, skill_description, thumbnail_image_url]
+      [
+        skill_category,
+        skill_subcategory,
+        skill_description,
+        thumbnail_image_url,
+      ]
     )
     .then((res) => {
-      console.log(res);
       return res.rows[0];
     });
 };
@@ -65,7 +72,6 @@ exports.fetchSkillsById = (skill_id, limit = 'ALL', offset = 0) => {
     )
     .then((result) => {
       if (result.rowCount) {
-        console.log(result.rows);
         return result.rows[0];
       }
       return Promise.reject({

@@ -1,5 +1,70 @@
 {
   "GET /api": {
     "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api/users": {
+    "description": "serves up a json representation of all users",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "user_id": 1,
+          "firebase_id": "dDmmSCBxSIUPLmkYavCw7RFxtTQ2",
+          "username": "fthynne0",
+          "first_name": "Felice",
+          "last_name": "Thynne",
+          "birth_date": "1930-10-15T00:00:00.000Z",
+          "avatar_url": "https://robohash.org/exercitationemillumlibero.png?size=50x50&set=set1",
+          "address": "2 Melrose Point",
+          "postcode": "BD7",
+          "email_address": "fthynne0@wordpress.org",
+          "bio": "Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",
+          "minter": false
+        },
+        {
+          "user_id": 2,
+          "firebase_id": "dDmmSCBxSIUPLmkYavCw7RFxtTQ2",
+          "username": "abracey1",
+          "first_name": "Astrid",
+          "last_name": "Bracey",
+          "birth_date": "1929-12-13T00:00:00.000Z",
+          "avatar_url": "https://robohash.org/distinctionequealiquid.png?size=50x50&set=set1",
+          "address": "7 Dahle Street",
+          "postcode": "OX7",
+          "email_address": "abracey1@cloudflare.com",
+          "bio": "Sed accumsan felis.",
+          "minter": false
+        }
+      ]
+    }
+  },
+  "GET /api/users/:username": {
+    "description": "serves up a json representation of a user by username",
+    "queries": [],
+    "exampleResponse": {
+      "user": {
+        "user_id": 1,
+        "firebase_id": "dDmmSCBxSIUPLmkYavCw7RFxtTQ2",
+        "username": "fthynne0",
+        "first_name": "Felice",
+        "last_name": "Thynne",
+        "birth_date": "1930-10-15T00:00:00.000Z",
+        "avatar_url": "https://robohash.org/exercitationemillumlibero.png?size=50x50&set=set1",
+        "address": "2 Melrose Point",
+        "postcode": "BD7",
+        "email_address": "fthynne0@wordpress.org",
+        "bio": "Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",
+        "minter": false
+      }
+    }
+  },
+  "GET /api/skills": {
+    "description": "serves up a json representation of all skill categories",
+    "queries": [],
+    "exampleResponse": {
+      "skill_categories": [
+        { "slug": "coding", "description": "Teach a coding language" }
+      ]
+    }
   }
 }

@@ -25,7 +25,6 @@ describe('Search end point tests', () => {
       .get('/api/search?q=cleaning')
       .expect(200)
       .then((res) => {
-        console.log(res.body);
         expect(res.body).toEqual(
           expect.objectContaining({
             results: expect.any(Array),
@@ -38,7 +37,6 @@ describe('Search end point tests', () => {
       .get('/api/search?q=french russian')
       .expect(200)
       .then((res) => {
-        console.log(res.body);
         expect(res.body).toEqual(
           expect.objectContaining({
             results: expect.any(Array),
@@ -51,7 +49,6 @@ describe('Search end point tests', () => {
       .get('/api/search?q="Task 4"')
       .expect(200)
       .then((res) => {
-        console.log(res.body);
         expect(res.body).toEqual(
           expect.objectContaining({
             results: expect.any(Array),
@@ -65,7 +62,19 @@ describe('Search end point tests', () => {
       .get('/api/search?q="Task 1" household french')
       .expect(200)
       .then((res) => {
-        console.log(res.body);
+        expect(res.body).toEqual(
+          expect.objectContaining({
+            results: expect.any(Array),
+          })
+        );
+      });
+  });
+
+  it('5. Array of results for multi word search string based on skill description', () => {
+    return request(app)
+      .get('/api/search?q=speaking listening')
+      .expect(200)
+      .then((res) => {
         expect(res.body).toEqual(
           expect.objectContaining({
             results: expect.any(Array),

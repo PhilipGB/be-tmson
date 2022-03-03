@@ -20,7 +20,9 @@ exports.fetchTasks = (sort, order) => {
     });
   }
 
-  let queryStr = 'SELECT task_id, skill_id, start_time, end_time, location FROM tasks';
+  let queryStr = `SELECT 
+      *
+    FROM tasks`;
 
   queryStr += ` ORDER BY ${sort} ${order}`;
 
@@ -43,7 +45,6 @@ exports.fetchTaskById = (id) => {
     )
     .then(({ rows }) => {
       if (!rows[0]) {
-        console.log(rows[0]);
         return Promise.reject({
           status: 404,
           msg: 'Not Found',
@@ -54,17 +55,21 @@ exports.fetchTaskById = (id) => {
 };
 // amend this to take update on task_complete?
 exports.updateTaskById = (body, id) => {
-  const { location } = body;
-  const { skill_id } = body;
   const { booker_id } = body;
   const { provider_id } = body;
+  const { location } = body;
+  const { skill_id } = body;
+  const { task_name } = body;
+  const { task_description } = body;
   const { start_time } = body;
   const { end_time } = body;
+  const { task_booking_confirmed } = body;
+  const { task_completed } = body;
 
   return db
     .query(
-      `UPDATE tasks SET location = $1, skill_id = $2, booker_id = $3, provider_id = $4, start_time = $5, end_time = $6 WHERE task_id = $7 RETURNING *`,
-      [location, skill_id, booker_id, provider_id, start_time, end_time, id]
+      `UPDATE tasks SET booker_id = $1, provider_id = $2, location = $3, skill_id = $4, task_name = $5, task_description = $6, start_time = $7, end_time = $8, task_booking_confirmed = $9, task_completed = $10  WHERE task_id = $11 RETURNING *`,
+      [booker_id, provider_id, location, skill_id, task_name, task_description, start_time, end_time, task_booking_confirmed, task_completed, id]
     )
     .then(({ rows }) => {
       if (!rows.length) {
@@ -79,21 +84,33 @@ exports.updateTaskById = (body, id) => {
 };
 
 exports.writeNewTask = (body) => {
-  const { booker_id } = body;
-  // const { task_id } = body;
-  const { skill_id } = body;
-  const { start_time } = body;
-  const { end_time } = body;
-  const { location } = body;
+  const {
+    booker_id,
+    skill_id,
+    task_name,
+    task_description,
+    start_time,
+    end_time,
+    location,
+  } = body;
+
   return db
     .query(
       `INSERT INTO tasks 
-			(booker_id, skill_id, start_time, end_time, location)
+			(booker_id, skill_id, task_name, task_description, start_time, end_time, location)
 		VALUES
-			($1, $2, $3, $4, $5)
+			($1, $2, $3, $4, $5, $6, $7)
 		RETURNING *
 	`,
-      [booker_id, skill_id, start_time, end_time, location]
+      [
+        booker_id,
+        skill_id,
+        task_name,
+        task_description,
+        start_time,
+        end_time,
+        location,
+      ]
     )
     .then(({ rows }) => {
       return rows[0];
@@ -113,7 +130,6 @@ exports.eraseTask = (id) => {
     .query(`DELETE FROM tasks WHERE task_id = $1 RETURNING *`, [id])
     .then(({ rows }) => {})
     .catch((err) => {
-      console.log('Delete Error: >> ', err);
       throw err;
     });
 };
